@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PhamDangKhoa_W345_C2.Models;
 
@@ -11,9 +12,11 @@ using PhamDangKhoa_W345_C2.Models;
 namespace PhamDangKhoa_W345_C2.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260530100451_UpdateProductImages")]
+    partial class UpdateProductImages
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -494,7 +497,7 @@ namespace PhamDangKhoa_W345_C2.Migrations
                             Id = 13,
                             CategoryId = 3,
                             Description = "Tai nghe chống ồn chủ động.",
-                            ImageUrl = "/images/sony-headphone.jpg",
+                            ImageUrl = "https://picsum.photos/300/300?random=13",
                             Name = "Tai nghe Sony",
                             Price = 3000000m,
                             Quantity = 50
@@ -504,7 +507,7 @@ namespace PhamDangKhoa_W345_C2.Migrations
                             Id = 14,
                             CategoryId = 4,
                             Description = "Màn hình 27 inch 4K IPS.",
-                            ImageUrl = "/images/dell-ultrasharp.jpg",
+                            ImageUrl = "https://picsum.photos/300/300?random=14",
                             Name = "Màn hình Dell UltraSharp",
                             Price = 8000000m,
                             Quantity = 50
@@ -514,7 +517,7 @@ namespace PhamDangKhoa_W345_C2.Migrations
                             Id = 15,
                             CategoryId = 4,
                             Description = "Ổ cứng SSD NVMe tốc độ cao.",
-                            ImageUrl = "/images/samsung-ssd.jpg",
+                            ImageUrl = "https://picsum.photos/300/300?random=15",
                             Name = "Ổ cứng SSD Samsung 1TB",
                             Price = 2000000m,
                             Quantity = 50
@@ -524,7 +527,7 @@ namespace PhamDangKhoa_W345_C2.Migrations
                             Id = 16,
                             CategoryId = 4,
                             Description = "RAM DDR4 3200MHz.",
-                            ImageUrl = "/images/corsair-ram.png",
+                            ImageUrl = "https://picsum.photos/300/300?random=16",
                             Name = "RAM Corsair 16GB",
                             Price = 1500000m,
                             Quantity = 50
@@ -534,7 +537,7 @@ namespace PhamDangKhoa_W345_C2.Migrations
                             Id = 17,
                             CategoryId = 4,
                             Description = "Card đồ họa chơi game tầm trung.",
-                            ImageUrl = "/images/rtx3060.jpg",
+                            ImageUrl = "https://picsum.photos/300/300?random=17",
                             Name = "Card đồ họa RTX 3060",
                             Price = 9000000m,
                             Quantity = 50
@@ -544,7 +547,7 @@ namespace PhamDangKhoa_W345_C2.Migrations
                             Id = 18,
                             CategoryId = 4,
                             Description = "Bo mạch chủ cao cấp cho Intel.",
-                            ImageUrl = "/images/asus-rog-mainboard.jpg",
+                            ImageUrl = "https://picsum.photos/300/300?random=18",
                             Name = "Mainboard ASUS ROG",
                             Price = 4000000m,
                             Quantity = 50
@@ -554,7 +557,7 @@ namespace PhamDangKhoa_W345_C2.Migrations
                             Id = 19,
                             CategoryId = 4,
                             Description = "Tản nhiệt AIO có màn hình LCD.",
-                            ImageUrl = "/images/nzxt-aio.jpg",
+                            ImageUrl = "https://picsum.photos/300/300?random=19",
                             Name = "Tản nhiệt nước NZXT",
                             Price = 3500000m,
                             Quantity = 50
@@ -564,7 +567,7 @@ namespace PhamDangKhoa_W345_C2.Migrations
                             Id = 20,
                             CategoryId = 4,
                             Description = "Nguồn máy tính chuẩn 80 Plus Gold.",
-                            ImageUrl = "/images/corsair-psu.jpg",
+                            ImageUrl = "https://picsum.photos/300/300?random=20",
                             Name = "Nguồn Corsair 750W",
                             Price = 2200000m,
                             Quantity = 50
@@ -594,7 +597,7 @@ namespace PhamDangKhoa_W345_C2.Migrations
                             Id = 23,
                             CategoryId = 2,
                             Description = "Máy tính siêu nhỏ gọn phù hợp tivi phòng khách.",
-                            ImageUrl = "/images/intel-nuc.jpg",
+                            ImageUrl = "https://picsum.photos/300/300?random=23",
                             Name = "PC Mini Intel NUC",
                             Price = 12000000m,
                             Quantity = 50
@@ -604,7 +607,7 @@ namespace PhamDangKhoa_W345_C2.Migrations
                             Id = 24,
                             CategoryId = 2,
                             Description = "Máy trạm Apple hiệu năng đồ họa cực đỉnh.",
-                            ImageUrl = "/images/mac-studio.jpg",
+                            ImageUrl = "https://picsum.photos/300/300?random=24",
                             Name = "Mac Studio M2 Max",
                             Price = 55000000m,
                             Quantity = 50
@@ -614,7 +617,7 @@ namespace PhamDangKhoa_W345_C2.Migrations
                             Id = 25,
                             CategoryId = 3,
                             Description = "Tay cầm chơi game tốt nhất trên Windows.",
-                            ImageUrl = "/images/xbox-controller.jpg",
+                            ImageUrl = "https://picsum.photos/300/300?random=25",
                             Name = "Tay cầm Xbox Series X",
                             Price = 1500000m,
                             Quantity = 50
@@ -624,7 +627,7 @@ namespace PhamDangKhoa_W345_C2.Migrations
                             Id = 26,
                             CategoryId = 3,
                             Description = "Webcam chuẩn Full HD cho streamer.",
-                            ImageUrl = "/images/logitech-c920.jpg",
+                            ImageUrl = "https://picsum.photos/300/300?random=26",
                             Name = "Webcam Logitech C920",
                             Price = 1800000m,
                             Quantity = 50
@@ -634,7 +637,7 @@ namespace PhamDangKhoa_W345_C2.Migrations
                             Id = 27,
                             CategoryId = 3,
                             Description = "Loa di động âm thanh sống động.",
-                            ImageUrl = "/images/jbl-speaker.jpg",
+                            ImageUrl = "https://picsum.photos/300/300?random=27",
                             Name = "Loa Bluetooth JBL",
                             Price = 2000000m,
                             Quantity = 50
@@ -644,7 +647,7 @@ namespace PhamDangKhoa_W345_C2.Migrations
                             Id = 28,
                             CategoryId = 4,
                             Description = "Ổ cứng lưu trữ dữ liệu dung lượng cao.",
-                            ImageUrl = "/images/seagate-hdd.jpg",
+                            ImageUrl = "https://picsum.photos/300/300?random=28",
                             Name = "Ổ cứng HDD Seagate 2TB",
                             Price = 1400000m,
                             Quantity = 50
@@ -654,7 +657,7 @@ namespace PhamDangKhoa_W345_C2.Migrations
                             Id = 29,
                             CategoryId = 4,
                             Description = "Vỏ máy tính bằng thép với mặt kính cường lực.",
-                            ImageUrl = "/images/nzxt-h510.jpg",
+                            ImageUrl = "https://picsum.photos/300/300?random=29",
                             Name = "Vỏ Case NZXT H510",
                             Price = 1900000m,
                             Quantity = 50
@@ -664,7 +667,7 @@ namespace PhamDangKhoa_W345_C2.Migrations
                             Id = 30,
                             CategoryId = 4,
                             Description = "Quạt tản nhiệt siêu êm, lưu lượng gió lớn.",
-                            ImageUrl = "/images/noctua-fan.jpg",
+                            ImageUrl = "https://picsum.photos/300/300?random=30",
                             Name = "Quạt tản nhiệt Noctua",
                             Price = 800000m,
                             Quantity = 50
