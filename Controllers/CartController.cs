@@ -1,12 +1,12 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using WebBanHang2.Extensions;
-using WebBanHang2.Models;
-using WebBanHang2.Repositories;
+using PhamDangKhoa_W345_C2.Extensions;
+using PhamDangKhoa_W345_C2.Models;
+using PhamDangKhoa_W345_C2.Repositories;
 using System.Text.Json;
 
-namespace WebBanHang2.Controllers
+namespace PhamDangKhoa_W345_C2.Controllers
 {
     public class CartController : Controller
     {

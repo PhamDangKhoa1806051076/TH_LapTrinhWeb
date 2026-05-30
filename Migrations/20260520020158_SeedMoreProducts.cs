@@ -4,7 +4,7 @@
 
 #pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 
-namespace WebBanHang2.Migrations
+namespace PhamDangKhoa_W345_C2.Migrations
 {
     /// <inheritdoc />
     public partial class SeedMoreProducts : Migration

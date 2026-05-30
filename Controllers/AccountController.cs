@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
-using WebBanHang2.Models;
+using PhamDangKhoa_W345_C2.Models;
 
-namespace WebBanHang2.Controllers
+namespace PhamDangKhoa_W345_C2.Controllers
 {
     public class AccountController : Controller
     {

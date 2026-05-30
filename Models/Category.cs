@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace WebBanHang2.Models
+namespace PhamDangKhoa_W345_C2.Models
 {
     public class Category
     {

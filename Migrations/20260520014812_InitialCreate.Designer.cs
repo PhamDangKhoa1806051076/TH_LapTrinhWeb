@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using WebBanHang2.Models;
+using PhamDangKhoa_W345_C2.Models;
 
 #nullable disable
 
-namespace WebBanHang2.Migrations
+namespace PhamDangKhoa_W345_C2.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     [Migration("20260520014812_InitialCreate")]
@@ -24,7 +24,7 @@ namespace WebBanHang2.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("WebBanHang2.Models.Category", b =>
+            modelBuilder.Entity("PhamDangKhoa_W345_C2.Models.Category", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -64,7 +64,7 @@ namespace WebBanHang2.Migrations
                         });
                 });
 
-            modelBuilder.Entity("WebBanHang2.Models.Product", b =>
+            modelBuilder.Entity("PhamDangKhoa_W345_C2.Models.Product", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()

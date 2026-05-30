@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using WebBanHang2.Models;
+using PhamDangKhoa_W345_C2.Models;
 
 #nullable disable
 
-namespace WebBanHang2.Migrations
+namespace PhamDangKhoa_W345_C2.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
@@ -155,7 +155,7 @@ namespace WebBanHang2.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("WebBanHang2.Models.ApplicationUser", b =>
+            modelBuilder.Entity("PhamDangKhoa_W345_C2.Models.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -226,7 +226,7 @@ namespace WebBanHang2.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("WebBanHang2.Models.Category", b =>
+            modelBuilder.Entity("PhamDangKhoa_W345_C2.Models.Category", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -266,7 +266,7 @@ namespace WebBanHang2.Migrations
                         });
                 });
 
-            modelBuilder.Entity("WebBanHang2.Models.Order", b =>
+            modelBuilder.Entity("PhamDangKhoa_W345_C2.Models.Order", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -303,7 +303,7 @@ namespace WebBanHang2.Migrations
                     b.ToTable("Orders");
                 });
 
-            modelBuilder.Entity("WebBanHang2.Models.OrderDetail", b =>
+            modelBuilder.Entity("PhamDangKhoa_W345_C2.Models.OrderDetail", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -332,7 +332,7 @@ namespace WebBanHang2.Migrations
                     b.ToTable("OrderDetails");
                 });
 
-            modelBuilder.Entity("WebBanHang2.Models.Product", b =>
+            modelBuilder.Entity("PhamDangKhoa_W345_C2.Models.Product", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -682,7 +682,7 @@ namespace WebBanHang2.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("WebBanHang2.Models.ApplicationUser", null)
+                    b.HasOne("PhamDangKhoa_W345_C2.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -691,7 +691,7 @@ namespace WebBanHang2.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("WebBanHang2.Models.ApplicationUser", null)
+                    b.HasOne("PhamDangKhoa_W345_C2.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -706,7 +706,7 @@ namespace WebBanHang2.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("WebBanHang2.Models.ApplicationUser", null)
+                    b.HasOne("PhamDangKhoa_W345_C2.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -715,16 +715,16 @@ namespace WebBanHang2.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("WebBanHang2.Models.ApplicationUser", null)
+                    b.HasOne("PhamDangKhoa_W345_C2.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("WebBanHang2.Models.Order", b =>
+            modelBuilder.Entity("PhamDangKhoa_W345_C2.Models.Order", b =>
                 {
-                    b.HasOne("WebBanHang2.Models.ApplicationUser", "User")
+                    b.HasOne("PhamDangKhoa_W345_C2.Models.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -733,15 +733,15 @@ namespace WebBanHang2.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("WebBanHang2.Models.OrderDetail", b =>
+            modelBuilder.Entity("PhamDangKhoa_W345_C2.Models.OrderDetail", b =>
                 {
-                    b.HasOne("WebBanHang2.Models.Order", "Order")
+                    b.HasOne("PhamDangKhoa_W345_C2.Models.Order", "Order")
                         .WithMany("OrderDetails")
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("WebBanHang2.Models.Product", "Product")
+                    b.HasOne("PhamDangKhoa_W345_C2.Models.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -752,7 +752,7 @@ namespace WebBanHang2.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("WebBanHang2.Models.Order", b =>
+            modelBuilder.Entity("PhamDangKhoa_W345_C2.Models.Order", b =>
                 {
                     b.Navigation("OrderDetails");
                 });

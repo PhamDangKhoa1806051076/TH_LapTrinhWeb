@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using WebBanHang2.Models;
+using PhamDangKhoa_W345_C2.Models;
 
 #nullable disable
 
-namespace WebBanHang2.Migrations
+namespace PhamDangKhoa_W345_C2.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     [Migration("20260527012724_AddFullName")]
@@ -158,7 +158,7 @@ namespace WebBanHang2.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("WebBanHang2.Models.ApplicationUser", b =>
+            modelBuilder.Entity("PhamDangKhoa_W345_C2.Models.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -229,7 +229,7 @@ namespace WebBanHang2.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("WebBanHang2.Models.Category", b =>
+            modelBuilder.Entity("PhamDangKhoa_W345_C2.Models.Category", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -269,7 +269,7 @@ namespace WebBanHang2.Migrations
                         });
                 });
 
-            modelBuilder.Entity("WebBanHang2.Models.Product", b =>
+            modelBuilder.Entity("PhamDangKhoa_W345_C2.Models.Product", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -586,7 +586,7 @@ namespace WebBanHang2.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("WebBanHang2.Models.ApplicationUser", null)
+                    b.HasOne("PhamDangKhoa_W345_C2.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -595,7 +595,7 @@ namespace WebBanHang2.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("WebBanHang2.Models.ApplicationUser", null)
+                    b.HasOne("PhamDangKhoa_W345_C2.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -610,7 +610,7 @@ namespace WebBanHang2.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("WebBanHang2.Models.ApplicationUser", null)
+                    b.HasOne("PhamDangKhoa_W345_C2.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -619,7 +619,7 @@ namespace WebBanHang2.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("WebBanHang2.Models.ApplicationUser", null)
+                    b.HasOne("PhamDangKhoa_W345_C2.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)

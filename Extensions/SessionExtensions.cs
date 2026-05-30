@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Http;
 using System.Text.Json;
 
-namespace WebBanHang2.Extensions
+namespace PhamDangKhoa_W345_C2.Extensions
 {
     public static class SessionExtensions
     {

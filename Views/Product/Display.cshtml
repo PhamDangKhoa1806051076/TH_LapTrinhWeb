@@ -1,7 +1,7 @@
-@model WebBanHang2.Models.Product
+@model PhamDangKhoa_W345_C2.Models.Product
 @{
     ViewData["Title"] = Model.Name;
-    var relatedProducts = ViewBag.RelatedProducts as IEnumerable<WebBanHang2.Models.Product>;
+    var relatedProducts = ViewBag.RelatedProducts as IEnumerable<PhamDangKhoa_W345_C2.Models.Product>;
     
     // Gom tất cả ảnh lại để hiển thị
     var allImages = new List<string>();

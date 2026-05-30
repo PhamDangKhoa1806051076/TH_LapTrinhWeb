@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace WebBanHang2.Migrations
+namespace PhamDangKhoa_W345_C2.Migrations
 {
     /// <inheritdoc />
     public partial class AddOrderAndQuantity : Migration

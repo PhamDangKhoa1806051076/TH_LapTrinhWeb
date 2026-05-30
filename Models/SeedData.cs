@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 
-namespace WebBanHang2.Models
+namespace PhamDangKhoa_W345_C2.Models
 {
     public static class SeedData
     {

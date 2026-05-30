@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace WebBanHang2.Areas.Admin.Controllers
+namespace PhamDangKhoa_W345_C2.Areas.Admin.Controllers
 {
     [Area("Admin")]
     public class HomeController : Controller

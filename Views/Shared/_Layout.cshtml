@@ -1,6 +1,6 @@
 @using Microsoft.AspNetCore.Identity
-@using WebBanHang2.Models
-@using WebBanHang2.Extensions
+@using PhamDangKhoa_W345_C2.Models
+@using PhamDangKhoa_W345_C2.Extensions
 @using Microsoft.AspNetCore.Http
 @using System.Text.Json
 @inject SignInManager<ApplicationUser> SignInManager
@@ -8,10 +8,10 @@
 @inject IHttpContextAccessor HttpContextAccessor
 @{
     var cartCookie = HttpContextAccessor.HttpContext?.Request.Cookies["CartCookie"];
-    var cart = new List<WebBanHang2.Models.CartItem>();
+    var cart = new List<PhamDangKhoa_W345_C2.Models.CartItem>();
     if (!string.IsNullOrEmpty(cartCookie))
     {
-        try { cart = JsonSerializer.Deserialize<List<WebBanHang2.Models.CartItem>>(cartCookie) ?? new List<WebBanHang2.Models.CartItem>(); }
+        try { cart = JsonSerializer.Deserialize<List<PhamDangKhoa_W345_C2.Models.CartItem>>(cartCookie) ?? new List<PhamDangKhoa_W345_C2.Models.CartItem>(); }
         catch { }
     }
     int cartCount = cart.Sum(x => x.Quantity);
@@ -33,7 +33,7 @@
     
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/style.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/WebBanHang2.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/PhamDangKhoa_W345_C2.styles.css" asp-append-version="true" />
     <style>
         .cart-container { position: relative; }
         .cart-btn { cursor: pointer; }

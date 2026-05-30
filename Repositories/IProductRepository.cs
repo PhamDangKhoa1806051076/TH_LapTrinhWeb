@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using WebBanHang2.Models;
+using PhamDangKhoa_W345_C2.Models;
 
-namespace WebBanHang2.Repositories
+namespace PhamDangKhoa_W345_C2.Repositories
 {
     public interface IProductRepository
     {
