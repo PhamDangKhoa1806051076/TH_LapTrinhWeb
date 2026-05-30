@@ -49,8 +49,8 @@ body {
 }
 
 .logo-text span {
-    color: var(--primary-color);
-    text-shadow: 0 0 5px var(--primary-color);
+    color: #e31e24;
+    text-shadow: none;
 }
 .logo-text:hover { color: var(--text-main); }
 
@@ -106,24 +106,47 @@ body {
 .top-links {
     list-style: none;
     display: flex;
-    gap: 20px;
+    gap: 12px;
     margin: 0;
     padding: 0;
     align-items: center;
+    flex-wrap: nowrap;
 }
 
 .top-links a {
     text-decoration: none;
     color: var(--text-muted);
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 600;
     transition: var(--transition);
     text-transform: uppercase;
+    white-space: nowrap;
 }
 
 .top-links a:hover {
     color: var(--primary-color);
-    text-shadow: 0 0 8px var(--primary-color);
+    text-shadow: none;
+}
+
+/* Giới thiệu, Tin tức, Liên hệ luôn màu đen */
+.top-links li:nth-last-child(4) a,
+.top-links li:nth-last-child(3) a,
+.top-links li:nth-last-child(2) a {
+    color: #222222 !important;
+}
+.top-links li:nth-last-child(4) a:hover,
+.top-links li:nth-last-child(3) a:hover,
+.top-links li:nth-last-child(2) a:hover {
+    color: var(--primary-color) !important;
+}
+
+/* nav-info-link: Giới thiệu, Tin tức, Liên hệ luôn đen */
+.top-links a.nav-info-link {
+    color: #222222 !important;
+}
+.top-links a.nav-info-link:hover {
+    color: var(--primary-color) !important;
+    text-shadow: none !important;
 }
 
 .cart-btn {
