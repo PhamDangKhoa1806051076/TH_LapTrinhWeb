@@ -21,7 +21,7 @@ namespace PhamDangKhoa_W345_C2.Models
                 }
             }
 
-            var adminEmail = "admin@angaming.com";
+            var adminEmail = "admin@sgnstore.com";
             var adminUser = await userManager.FindByEmailAsync(adminEmail);
 
             if (adminUser == null)
