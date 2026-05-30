@@ -116,6 +116,12 @@
                         <li><a href="#">Giới thiệu</a></li>
                         <li><a href="#">Tin tức</a></li>
                         <li><a href="#">Liên hệ</a></li>
+                        <li>
+                            <button id="theme-toggle" title="Chuyển chế độ sáng/tối"
+                                style="background:none; border:none; cursor:pointer; padding:4px 6px; border-radius:8px; color:var(--text-main); font-size:18px; transition:var(--transition);">
+                                <i id="theme-icon" class="fa-solid fa-moon"></i>
+                            </button>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -471,5 +477,25 @@
         });
     </script>
     @await RenderSectionAsync("Scripts", required: false)
+
+    <script>
+        // ===== DARK MODE TOGGLE =====
+        const themeToggle = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        const html = document.documentElement;
+
+        // Áp dụng theme đã lưu khi load trang
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        html.setAttribute('data-theme', savedTheme);
+        themeIcon.className = savedTheme === 'dark' ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+
+        themeToggle.addEventListener('click', function () {
+            const current = html.getAttribute('data-theme');
+            const next = current === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', next);
+            localStorage.setItem('theme', next);
+            themeIcon.className = next === 'dark' ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+        });
+    </script>
 </body>
 </html>
