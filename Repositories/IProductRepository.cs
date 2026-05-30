@@ -8,7 +8,7 @@ namespace PhamDangKhoa_W345_C2.Repositories
     
         IEnumerable<Product> GetAll();
        
-        Product GetById(int id);
+        Product? GetById(int id);
      
         void Add(Product product);
       

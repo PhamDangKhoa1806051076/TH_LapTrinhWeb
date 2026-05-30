@@ -270,6 +270,7 @@ namespace PhamDangKhoa_W345_C2.Controllers
 
             // Lấy thông tin user hiện tại
             var user = await _userManager.GetUserAsync(User);
+            if (user == null) return RedirectToAction("Login", "Account");
 
             // Kiểm tra lại tồn kho một lần nữa trước khi tạo đơn
             foreach(var item in cart)

@@ -42,7 +42,7 @@ namespace PhamDangKhoa_W345_C2.Repositories
             return _products;
         }
         
-        public Product GetById(int id)
+        public Product? GetById(int id)
         {
             // Tìm và trả về sản phẩm đầu tiên có ID khớp với tham số truyền vào
             return _products.FirstOrDefault(p => p.Id == id);

@@ -8,11 +8,11 @@ namespace PhamDangKhoa_W345_C2.Models
 
         public int OrderId { get; set; }
         [ForeignKey("OrderId")]
-        public Order Order { get; set; }
+        public Order Order { get; set; } = null!;
 
         public int ProductId { get; set; }
         [ForeignKey("ProductId")]
-        public Product Product { get; set; }
+        public Product Product { get; set; } = null!;
 
         public int Quantity { get; set; }
 

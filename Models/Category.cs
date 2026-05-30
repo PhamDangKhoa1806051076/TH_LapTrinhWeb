@@ -9,6 +9,6 @@ namespace PhamDangKhoa_W345_C2.Models
         
         
         [Required, StringLength(50)]
-        public string Name { get; set; }
+        public string Name { get; set; } = string.Empty;
     }
 }

@@ -18,7 +18,7 @@ namespace PhamDangKhoa_W345_C2.Repositories
             return _context.Products.ToList();
         }
 
-        public Product GetById(int id)
+        public Product? GetById(int id)
         {
             return _context.Products.FirstOrDefault(p => p.Id == id);
         }
