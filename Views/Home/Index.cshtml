@@ -10,6 +10,7 @@
             <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
             <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
             <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
         </div>
         <div class="carousel-inner" style="height: 450px;">
             <div class="carousel-item active h-100">
@@ -39,6 +40,16 @@
                     <p class="fs-4 text-light mb-4" style="max-width: 600px;">Bàn phím cơ, chuột không dây và tai nghe chống ồn siêu cấp.</p>
                     <div>
                         <a asp-controller="Product" asp-action="List" asp-route-categoryId="3" class="btn btn-danger btn-lg rounded-pill px-5 fw-bold shadow">Sắm Gaming Gear</a>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item h-100">
+                <img src="/images/linhkienbanner.jpg" class="d-block w-100 h-100 object-fit-cover" alt="Hero 4">
+                <div class="carousel-caption d-none d-md-block text-start p-5" style="background: linear-gradient(to right, rgba(0,0,0,0.8), transparent); left: 0; right: 0; bottom: 0; top: 0; display: flex !important; flex-direction: column; justify-content: center;">
+                    <h1 class="fw-bold text-white display-4 mb-3" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">Linh Kiện Chính Hãng</h1>
+                    <p class="fs-4 text-light mb-4" style="max-width: 600px;">RAM, SSD, Card đồ họa, Mainboard — đầy đủ linh kiện nâng cấp PC của bạn.</p>
+                    <div>
+                        <a asp-controller="Product" asp-action="List" asp-route-categoryId="4" class="btn btn-warning btn-lg rounded-pill px-5 fw-bold shadow text-dark">Xem Linh Kiện</a>
                     </div>
                 </div>
             </div>
