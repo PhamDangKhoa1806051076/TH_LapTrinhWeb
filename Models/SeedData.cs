@@ -46,7 +46,7 @@ namespace PhamDangKhoa_W345_C2.Models
                 await userManager.ResetPasswordAsync(adminUser, token, "123456A");
 
                 // Cập nhật avatar admin
-                adminUser.AvatarUrl = "/users/avatars/06305ee1-a101-412b-a7d0-4d0c35a84f33.png";
+                adminUser.AvatarUrl = "/images/avataradmin.jpg";
                 await userManager.UpdateAsync(adminUser);
             }
         }
