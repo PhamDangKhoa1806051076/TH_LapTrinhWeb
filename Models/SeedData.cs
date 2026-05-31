@@ -33,7 +33,7 @@ namespace PhamDangKhoa_W345_C2.Models
                     EmailConfirmed = true
                 };
 
-                var result = await userManager.CreateAsync(user, "123456A@");
+                var result = await userManager.CreateAsync(user, "123456A");
                 if (result.Succeeded)
                 {
                     await userManager.AddToRoleAsync(user, "Admin");
@@ -43,7 +43,7 @@ namespace PhamDangKhoa_W345_C2.Models
             {
                 // Cập nhật mật khẩu admin
                 var token = await userManager.GeneratePasswordResetTokenAsync(adminUser);
-                await userManager.ResetPasswordAsync(adminUser, token, "123456A@");
+                await userManager.ResetPasswordAsync(adminUser, token, "123456A");
 
                 // Cập nhật avatar admin
                 adminUser.AvatarUrl = "/users/avatars/06305ee1-a101-412b-a7d0-4d0c35a84f33.png";
