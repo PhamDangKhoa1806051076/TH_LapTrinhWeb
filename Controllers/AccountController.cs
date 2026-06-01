@@ -50,10 +50,16 @@ namespace PhamDangKhoa_W345_C2.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser 
+                { 
+                    UserName = model.Email, 
+                    Email = model.Email,
+                    FullName = model.FullName
+                };
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    await _userManager.AddToRoleAsync(user, SD.Role_Customer);
                     await _signInManager.SignInAsync(user, isPersistent: false);
                     return RedirectToAction("Index", "Home");
                 }
@@ -133,6 +139,10 @@ namespace PhamDangKhoa_W345_C2.Controllers
 
     public class RegisterViewModel
     {
+        [Required(ErrorMessage = "Vui lòng nhập họ tên")]
+        [Display(Name = "Họ và tên")]
+        public string FullName { get; set; } = null!;
+
         [Required]
         [EmailAddress]
         public string Email { get; set; } = null!;
