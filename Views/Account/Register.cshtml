@@ -31,6 +31,12 @@
                             <input asp-for="ConfirmPassword" class="form-control" placeholder="Xác nhận mật khẩu" required>
                             <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
                         </div>
+                        <div class="mb-3">
+                            <label asp-for="Role" class="form-label">Vai trò</label>
+                            <select asp-for="Role" asp-items="@Model.RoleList" class="form-select">
+                                <option disabled selected>-- Chọn vai trò --</option>
+                            </select>
+                        </div>
                         <div class="d-grid gap-2">
                             <button type="submit" class="btn btn-success">Đăng ký</button>
                         </div>

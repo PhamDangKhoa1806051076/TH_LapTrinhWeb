@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel.DataAnnotations;
 using PhamDangKhoa_W345_C2.Models;
 
@@ -9,11 +11,13 @@ namespace PhamDangKhoa_W345_C2.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
-        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
+        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _roleManager = roleManager;
         }
 
         [HttpGet]
@@ -42,7 +46,14 @@ namespace PhamDangKhoa_W345_C2.Controllers
         [HttpGet]
         public IActionResult Register()
         {
-            return View();
+            var model = new RegisterViewModel
+            {
+                RoleList = _roleManager.Roles
+                    .Where(r => r.Name != SD.Role_Admin)
+                    .Select(r => new SelectListItem { Text = r.Name, Value = r.Name })
+                    .ToList()
+            };
+            return View(model);
         }
 
         [HttpPost]
@@ -59,7 +70,15 @@ namespace PhamDangKhoa_W345_C2.Controllers
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await _userManager.AddToRoleAsync(user, SD.Role_Customer);
+                    // Nếu chọn role thì gán role đó, không thì mặc định Customer
+                    if (!string.IsNullOrEmpty(model.Role))
+                    {
+                        await _userManager.AddToRoleAsync(user, model.Role);
+                    }
+                    else
+                    {
+                        await _userManager.AddToRoleAsync(user, SD.Role_Customer);
+                    }
                     await _signInManager.SignInAsync(user, isPersistent: false);
                     return RedirectToAction("Index", "Home");
                 }
@@ -68,6 +87,11 @@ namespace PhamDangKhoa_W345_C2.Controllers
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
             }
+            // Reload RoleList nếu có lỗi
+            model.RoleList = _roleManager.Roles
+                .Where(r => r.Name != SD.Role_Admin)
+                .Select(r => new SelectListItem { Text = r.Name, Value = r.Name })
+                .ToList();
             return View(model);
         }
         
@@ -155,5 +179,10 @@ namespace PhamDangKhoa_W345_C2.Controllers
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; } = null!;
+
+        public string? Role { get; set; }
+
+        [ValidateNever]
+        public IEnumerable<SelectListItem> RoleList { get; set; } = new List<SelectListItem>();
     }
 }
