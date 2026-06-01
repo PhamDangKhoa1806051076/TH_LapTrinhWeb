@@ -9,15 +9,14 @@ namespace PhamDangKhoa_W345_C2.Models
             var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
             var userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
 
-            string[] roleNames = { "Admin", "User" };
-            IdentityResult roleResult;
+            // Seed tất cả roles theo SD.cs
+            string[] roleNames = { SD.Role_Admin, SD.Role_Customer, SD.Role_Employee, SD.Role_Company };
 
             foreach (var roleName in roleNames)
             {
-                var roleExist = await roleManager.RoleExistsAsync(roleName);
-                if (!roleExist)
+                if (!await roleManager.RoleExistsAsync(roleName))
                 {
-                    roleResult = await roleManager.CreateAsync(new IdentityRole(roleName));
+                    await roleManager.CreateAsync(new IdentityRole(roleName));
                 }
             }
 
@@ -36,7 +35,7 @@ namespace PhamDangKhoa_W345_C2.Models
                 var result = await userManager.CreateAsync(user, "123456A");
                 if (result.Succeeded)
                 {
-                    await userManager.AddToRoleAsync(user, "Admin");
+                    await userManager.AddToRoleAsync(user, SD.Role_Admin);
                 }
             }
             else
@@ -48,6 +47,12 @@ namespace PhamDangKhoa_W345_C2.Models
                 // Cập nhật avatar admin
                 adminUser.AvatarUrl = "/images/avataradmin.jpg";
                 await userManager.UpdateAsync(adminUser);
+
+                // Đảm bảo admin có role Admin
+                if (!await userManager.IsInRoleAsync(adminUser, SD.Role_Admin))
+                {
+                    await userManager.AddToRoleAsync(adminUser, SD.Role_Admin);
+                }
             }
         }
     }
