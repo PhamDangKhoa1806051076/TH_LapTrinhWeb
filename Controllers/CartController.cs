@@ -21,10 +21,20 @@ namespace PhamDangKhoa_W345_C2.Controllers
             _userManager = userManager;
         }
 
-        // Lấy giỏ hàng từ Cookie
+        // Lấy tên cookie riêng theo từng user
+        private string? GetCartCookieName()
+        {
+            var userId = _userManager.GetUserId(User);
+            return string.IsNullOrEmpty(userId) ? null : $"CartCookie_{userId}";
+        }
+
+        // Lấy giỏ hàng từ Cookie (chỉ khi đã đăng nhập)
         private List<CartItem> GetCartItems()
         {
-            var cartCookie = HttpContext.Request.Cookies["CartCookie"];
+            var cookieName = GetCartCookieName();
+            if (cookieName == null) return new List<CartItem>(); // Chưa đăng nhập → giỏ hàng trống
+
+            var cartCookie = HttpContext.Request.Cookies[cookieName];
             if (string.IsNullOrEmpty(cartCookie))
             {
                 return new List<CartItem>();
@@ -40,9 +50,12 @@ namespace PhamDangKhoa_W345_C2.Controllers
             }
         }
 
-        // Lưu giỏ hàng vào Cookie
+        // Lưu giỏ hàng vào Cookie (chỉ khi đã đăng nhập)
         private void SaveCartCookie(List<CartItem> ls)
         {
+            var cookieName = GetCartCookieName();
+            if (cookieName == null) return; // Chưa đăng nhập → không lưu
+
             var options = new CookieOptions
             {
                 Expires = DateTime.Now.AddDays(30),
@@ -50,9 +63,10 @@ namespace PhamDangKhoa_W345_C2.Controllers
                 IsEssential = true
             };
             var json = JsonSerializer.Serialize(ls);
-            HttpContext.Response.Cookies.Append("CartCookie", json, options);
+            HttpContext.Response.Cookies.Append(cookieName, json, options);
         }
 
+        [Authorize]
         public IActionResult Index()
         {
             var cart = GetCartItems();
@@ -60,6 +74,7 @@ namespace PhamDangKhoa_W345_C2.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public IActionResult AddToCart(int productId, int quantity = 1)
         {
             var product = _productRepository.GetById(productId);
@@ -109,6 +124,11 @@ namespace PhamDangKhoa_W345_C2.Controllers
         [HttpPost]
         public IActionResult AddToCartApi(int productId, int quantity = 1)
         {
+            if (User.Identity?.IsAuthenticated != true)
+            {
+                return Json(new { success = false, message = "Vui lòng đăng nhập để thêm sản phẩm vào giỏ hàng." });
+            }
+
             var product = _productRepository.GetById(productId);
             if (product == null)
             {
@@ -160,6 +180,7 @@ namespace PhamDangKhoa_W345_C2.Controllers
             });
         }
 
+        [Authorize]
         public IActionResult RemoveFromCart(int productId)
         {
             var cart = GetCartItems();
@@ -174,6 +195,7 @@ namespace PhamDangKhoa_W345_C2.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public IActionResult UpdateQuantity(int productId, int quantity)
         {
             if (quantity <= 0)
@@ -208,6 +230,11 @@ namespace PhamDangKhoa_W345_C2.Controllers
         [HttpPost]
         public IActionResult UpdateQuantityApi(int productId, int quantity)
         {
+            if (User.Identity?.IsAuthenticated != true)
+            {
+                return Json(new { success = false, message = "Vui lòng đăng nhập để cập nhật giỏ hàng." });
+            }
+
             var cart = GetCartItems();
             if (quantity <= 0)
             {
@@ -323,8 +350,10 @@ namespace PhamDangKhoa_W345_C2.Controllers
 
             await _context.SaveChangesAsync();
 
-            // Xóa giỏ hàng
-            HttpContext.Response.Cookies.Delete("CartCookie");
+            // Xóa giỏ hàng của user hiện tại
+            var cartCookieName = GetCartCookieName();
+            if (cartCookieName != null)
+                HttpContext.Response.Cookies.Delete(cartCookieName);
 
             TempData["Success"] = "Đặt hàng thành công! Đơn hàng của bạn đang chờ duyệt.";
             return RedirectToAction("OrderSuccess", new { orderId = order.Id });

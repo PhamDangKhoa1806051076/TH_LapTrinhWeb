@@ -56,5 +56,25 @@ namespace PhamDangKhoa_W345_C2.Areas.Admin.Controllers
             TempData["Success"] = "Cập nhật trạng thái đơn hàng thành công!";
             return RedirectToAction("Details", new { id = id });
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var order = await _context.Orders
+                .Include(o => o.OrderDetails)
+                .FirstOrDefaultAsync(o => o.Id == id);
+
+            if (order == null)
+            {
+                return NotFound();
+            }
+
+            _context.OrderDetails.RemoveRange(order.OrderDetails);
+            _context.Orders.Remove(order);
+            await _context.SaveChangesAsync();
+
+            TempData["Success"] = "Xóa đơn hàng thành công!";
+            return RedirectToAction(nameof(Index));
+        }
     }
 }

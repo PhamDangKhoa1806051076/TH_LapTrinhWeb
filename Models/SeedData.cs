@@ -54,6 +54,26 @@ namespace PhamDangKhoa_W345_C2.Models
                     await userManager.AddToRoleAsync(adminUser, SD.Role_Admin);
                 }
             }
+
+            // Đồng bộ tài khoản voduykha@gmail.com (role: Customer)
+            var khaUser = await userManager.FindByEmailAsync("voduykha@gmail.com");
+            if (khaUser != null)
+            {
+                var resetToken = await userManager.GeneratePasswordResetTokenAsync(khaUser);
+                await userManager.ResetPasswordAsync(khaUser, resetToken, "123456a!");
+                if (!await userManager.IsInRoleAsync(khaUser, SD.Role_Customer))
+                    await userManager.AddToRoleAsync(khaUser, SD.Role_Customer);
+            }
+
+            // Đồng bộ tài khoản nguyenduykha@3107 (role: Customer)
+            var nguyenKhaUser = await userManager.FindByNameAsync("nguyenduykha@3107");
+            if (nguyenKhaUser != null)
+            {
+                var resetToken2 = await userManager.GeneratePasswordResetTokenAsync(nguyenKhaUser);
+                await userManager.ResetPasswordAsync(nguyenKhaUser, resetToken2, "123456Ab");
+                if (!await userManager.IsInRoleAsync(nguyenKhaUser, SD.Role_Customer))
+                    await userManager.AddToRoleAsync(nguyenKhaUser, SD.Role_Customer);
+            }
         }
     }
 }

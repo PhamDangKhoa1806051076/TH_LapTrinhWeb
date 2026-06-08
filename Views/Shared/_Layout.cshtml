@@ -7,12 +7,17 @@
 @inject UserManager<ApplicationUser> UserManager
 @inject IHttpContextAccessor HttpContextAccessor
 @{
-    var cartCookie = HttpContextAccessor.HttpContext?.Request.Cookies["CartCookie"];
     var cart = new List<PhamDangKhoa_W345_C2.Models.CartItem>();
-    if (!string.IsNullOrEmpty(cartCookie))
+    if (SignInManager.IsSignedIn(User))
     {
-        try { cart = JsonSerializer.Deserialize<List<PhamDangKhoa_W345_C2.Models.CartItem>>(cartCookie) ?? new List<PhamDangKhoa_W345_C2.Models.CartItem>(); }
-        catch { }
+        var userId = UserManager.GetUserId(User);
+        var cookieName = $"CartCookie_{userId}";
+        var cartCookie = HttpContextAccessor.HttpContext?.Request.Cookies[cookieName];
+        if (!string.IsNullOrEmpty(cartCookie))
+        {
+            try { cart = JsonSerializer.Deserialize<List<PhamDangKhoa_W345_C2.Models.CartItem>>(cartCookie) ?? new List<PhamDangKhoa_W345_C2.Models.CartItem>(); }
+            catch { }
+        }
     }
     int cartCount = cart.Sum(x => x.Quantity);
     decimal cartTotal = cart.Sum(x => x.Price * x.Quantity);
