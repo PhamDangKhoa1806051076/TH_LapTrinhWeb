@@ -198,6 +198,19 @@ namespace PhamDangKhoa_W345_C2.Areas.Admin.Controllers
             return View(product);
         }
 
+        // Hiển thị chi tiết sản phẩm (xem)
+        public IActionResult Display(int id)
+        {
+            var product = _productRepository.GetById(id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+            var categories = _categoryRepository.GetAllCategories();
+            ViewBag.CategoryName = categories.FirstOrDefault(c => c.Id == product.CategoryId)?.Name ?? "Chưa phân loại";
+            return View(product);
+        }
+
         // Hiển thị trang xác nhận xóa sản phẩm
         public IActionResult Delete(int id)
         {

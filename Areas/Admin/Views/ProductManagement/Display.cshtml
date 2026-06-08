@@ -1,0 +1,176 @@
+@model PhamDangKhoa_W345_C2.Models.Product
+@{
+    ViewData["Title"] = "Chi tiết sản phẩm - " + Model.Name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .detail-card {
+        border-radius: 16px;
+        border: none;
+        box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+        overflow: hidden;
+    }
+    .detail-header {
+        background: linear-gradient(135deg, #212529, #343a40);
+        color: white;
+        padding: 2rem 2.5rem;
+    }
+    .main-img {
+        width: 100%;
+        max-height: 380px;
+        object-fit: contain;
+        border-radius: 12px;
+        background: #f8f9fa;
+        padding: 1rem;
+        border: 1px solid #e9ecef;
+    }
+    .sub-img {
+        width: 70px;
+        height: 70px;
+        object-fit: contain;
+        border-radius: 8px;
+        background: #f8f9fa;
+        padding: 4px;
+        border: 1px solid #e9ecef;
+        cursor: pointer;
+        transition: border-color 0.2s;
+    }
+    .sub-img:hover { border-color: #0d6efd; }
+    .info-label {
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: #6c757d;
+        font-weight: 600;
+        margin-bottom: 4px;
+    }
+    .info-value {
+        font-size: 1.05rem;
+        color: #212529;
+        font-weight: 500;
+    }
+    .price-display {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #dc3545;
+    }
+</style>
+
+<main class="container my-5" style="min-height: 70vh;">
+    <!-- Header -->
+    <div class="detail-card mb-4">
+        <div class="detail-header d-flex justify-content-between align-items-center">
+            <div>
+                <h3 class="fw-bold mb-1"><i class="fa-solid fa-eye me-2 text-info"></i>Chi tiết sản phẩm</h3>
+                <p class="mb-0 text-white-50">ID: #@Model.Id</p>
+            </div>
+            <div class="d-flex gap-2">
+                <a asp-action="Update" asp-route-id="@Model.Id" class="btn btn-warning fw-bold rounded-pill px-4">
+                    <i class="fa-solid fa-pen me-2"></i>Chỉnh sửa
+                </a>
+                <a asp-action="Index" class="btn btn-secondary rounded-pill px-4">
+                    <i class="fa-solid fa-arrow-left me-2"></i>Quay lại
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <!-- Image Column -->
+        <div class="col-lg-5">
+            <div class="card detail-card p-3">
+                <!-- Main Image -->
+                @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                {
+                    <img id="mainImg" src="@Model.ImageUrl" alt="@Model.Name" class="main-img mb-3" />
+                }
+                else
+                {
+                    <div class="main-img mb-3 d-flex align-items-center justify-content-center">
+                        <i class="fa-solid fa-image text-muted" style="font-size: 4rem;"></i>
+                    </div>
+                }
+
+                <!-- Sub Images -->
+                @if (Model.ImageUrls != null && Model.ImageUrls.Any())
+                {
+                    <div class="d-flex gap-2 flex-wrap">
+                        @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                        {
+                            <img src="@Model.ImageUrl" class="sub-img border border-primary" onclick="document.getElementById('mainImg').src=this.src" />
+                        }
+                        @foreach (var img in Model.ImageUrls)
+                        {
+                            <img src="@img" class="sub-img" onclick="document.getElementById('mainImg').src=this.src" />
+                        }
+                    </div>
+                }
+            </div>
+        </div>
+
+        <!-- Info Column -->
+        <div class="col-lg-7">
+            <div class="card detail-card p-4 h-100">
+                <h2 class="fw-bold text-dark mb-1">@Model.Name</h2>
+                <p class="text-muted small mb-3">Mã sản phẩm: #@Model.Id</p>
+
+                <div class="price-display mb-4">
+                    @Model.Price.ToString("#,##0") <span class="fs-5 text-muted fw-normal">₫</span>
+                </div>
+
+                <hr class="my-3">
+
+                <div class="row g-3 mb-4">
+                    <div class="col-sm-6">
+                        <p class="info-label">Danh mục</p>
+                        <p class="info-value">
+                            <span class="badge bg-primary bg-opacity-10 text-primary px-3 py-2 rounded-pill">
+                                    <i class="fa-solid fa-tag me-1"></i>@ViewBag.CategoryName
+                                </span>
+                        </p>
+                    </div>
+                    <div class="col-sm-6">
+                        <p class="info-label">Tồn kho</p>
+                        <p class="info-value">
+                            @if (Model.Quantity > 10)
+                            {
+                                <span class="badge bg-success bg-opacity-10 text-success px-3 py-2 rounded-pill">
+                                    <i class="fa-solid fa-box me-1"></i>@Model.Quantity sản phẩm
+                                </span>
+                            }
+                            else if (Model.Quantity > 0)
+                            {
+                                <span class="badge bg-warning bg-opacity-10 text-warning px-3 py-2 rounded-pill">
+                                    <i class="fa-solid fa-triangle-exclamation me-1"></i>Còn @Model.Quantity (sắp hết)
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-danger bg-opacity-10 text-danger px-3 py-2 rounded-pill">
+                                    <i class="fa-solid fa-xmark me-1"></i>Hết hàng
+                                </span>
+                            }
+                        </p>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <p class="info-label">Mô tả sản phẩm</p>
+                    <p class="text-secondary lh-lg">@(string.IsNullOrEmpty(Model.Description) ? "Chưa có mô tả." : Model.Description)</p>
+                </div>
+
+                <hr class="my-3">
+
+                <div class="d-flex gap-2 mt-auto">
+                    <a asp-action="Update" asp-route-id="@Model.Id" class="btn btn-warning flex-fill fw-bold rounded-pill">
+                        <i class="fa-solid fa-pen me-2"></i>Chỉnh sửa sản phẩm
+                    </a>
+                    <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-outline-danger rounded-pill px-4">
+                        <i class="fa-solid fa-trash"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

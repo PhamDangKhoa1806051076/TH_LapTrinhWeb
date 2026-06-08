@@ -11,11 +11,11 @@
     if (SignInManager.IsSignedIn(User))
     {
         var userId = UserManager.GetUserId(User);
-        var cookieName = $"CartCookie_{userId}";
-        var cartCookie = HttpContextAccessor.HttpContext?.Request.Cookies[cookieName];
-        if (!string.IsNullOrEmpty(cartCookie))
+        var sessionKey = $"Cart_{userId}";
+        var cartJson = HttpContextAccessor.HttpContext?.Session.GetString(sessionKey);
+        if (!string.IsNullOrEmpty(cartJson))
         {
-            try { cart = JsonSerializer.Deserialize<List<PhamDangKhoa_W345_C2.Models.CartItem>>(cartCookie) ?? new List<PhamDangKhoa_W345_C2.Models.CartItem>(); }
+            try { cart = JsonSerializer.Deserialize<List<PhamDangKhoa_W345_C2.Models.CartItem>>(cartJson) ?? new List<PhamDangKhoa_W345_C2.Models.CartItem>(); }
             catch { }
         }
     }

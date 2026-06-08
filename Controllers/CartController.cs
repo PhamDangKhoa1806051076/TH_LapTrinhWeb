@@ -21,27 +21,27 @@ namespace PhamDangKhoa_W345_C2.Controllers
             _userManager = userManager;
         }
 
-        // Lấy tên cookie riêng theo từng user
-        private string? GetCartCookieName()
+        // Khóa Session riêng theo từng user (tránh lẫn giỏ hàng giữa các tài khoản)
+        private string? GetSessionKey()
         {
             var userId = _userManager.GetUserId(User);
-            return string.IsNullOrEmpty(userId) ? null : $"CartCookie_{userId}";
+            return string.IsNullOrEmpty(userId) ? null : $"Cart_{userId}";
         }
 
-        // Lấy giỏ hàng từ Cookie (chỉ khi đã đăng nhập)
+        // Lấy giỏ hàng từ Session (chỉ khi đã đăng nhập)
         private List<CartItem> GetCartItems()
         {
-            var cookieName = GetCartCookieName();
-            if (cookieName == null) return new List<CartItem>(); // Chưa đăng nhập → giỏ hàng trống
+            var sessionKey = GetSessionKey();
+            if (sessionKey == null) return new List<CartItem>(); // Chưa đăng nhập → giỏ hàng trống
 
-            var cartCookie = HttpContext.Request.Cookies[cookieName];
-            if (string.IsNullOrEmpty(cartCookie))
+            var cartJson = HttpContext.Session.GetString(sessionKey);
+            if (string.IsNullOrEmpty(cartJson))
             {
                 return new List<CartItem>();
             }
             try
             {
-                var cart = JsonSerializer.Deserialize<List<CartItem>>(cartCookie);
+                var cart = JsonSerializer.Deserialize<List<CartItem>>(cartJson);
                 return cart ?? new List<CartItem>();
             }
             catch
@@ -50,20 +50,13 @@ namespace PhamDangKhoa_W345_C2.Controllers
             }
         }
 
-        // Lưu giỏ hàng vào Cookie (chỉ khi đã đăng nhập)
-        private void SaveCartCookie(List<CartItem> ls)
+        // Lưu giỏ hàng vào Session (chỉ khi đã đăng nhập)
+        private void SaveCartItems(List<CartItem> cart)
         {
-            var cookieName = GetCartCookieName();
-            if (cookieName == null) return; // Chưa đăng nhập → không lưu
+            var sessionKey = GetSessionKey();
+            if (sessionKey == null) return; // Chưa đăng nhập → không lưu
 
-            var options = new CookieOptions
-            {
-                Expires = DateTime.Now.AddDays(30),
-                HttpOnly = true,
-                IsEssential = true
-            };
-            var json = JsonSerializer.Serialize(ls);
-            HttpContext.Response.Cookies.Append(cookieName, json, options);
+            HttpContext.Session.SetString(sessionKey, JsonSerializer.Serialize(cart));
         }
 
         [Authorize]
@@ -117,7 +110,7 @@ namespace PhamDangKhoa_W345_C2.Controllers
                 TempData["Success"] = "Đã thêm sản phẩm vào giỏ hàng.";
             }
 
-            SaveCartCookie(cart);
+            SaveCartItems(cart);
             return RedirectToAction("Index");
         }
 
@@ -166,7 +159,7 @@ namespace PhamDangKhoa_W345_C2.Controllers
                 });
             }
 
-            SaveCartCookie(cart);
+            SaveCartItems(cart);
             
             int cartCount = cart.Sum(x => x.Quantity);
             decimal cartTotal = cart.Sum(x => x.Price * x.Quantity);
@@ -188,7 +181,7 @@ namespace PhamDangKhoa_W345_C2.Controllers
             if (cartItem != null)
             {
                 cart.Remove(cartItem);
-                SaveCartCookie(cart);
+                SaveCartItems(cart);
                 TempData["Success"] = "Đã xóa sản phẩm khỏi giỏ hàng.";
             }
             return RedirectToAction("Index");
@@ -221,7 +214,7 @@ namespace PhamDangKhoa_W345_C2.Controllers
             if (cartItem != null)
             {
                 cartItem.Quantity = quantity;
-                SaveCartCookie(cart);
+                SaveCartItems(cart);
                 TempData["Success"] = "Đã cập nhật số lượng.";
             }
             return RedirectToAction("Index");
@@ -242,7 +235,7 @@ namespace PhamDangKhoa_W345_C2.Controllers
                 if (itemToRemove != null)
                 {
                     cart.Remove(itemToRemove);
-                    SaveCartCookie(cart);
+                    SaveCartItems(cart);
                 }
             }
             else
@@ -257,7 +250,7 @@ namespace PhamDangKhoa_W345_C2.Controllers
                 if (cartItem != null)
                 {
                     cartItem.Quantity = quantity;
-                    SaveCartCookie(cart);
+                    SaveCartItems(cart);
                 }
             }
 
@@ -350,10 +343,10 @@ namespace PhamDangKhoa_W345_C2.Controllers
 
             await _context.SaveChangesAsync();
 
-            // Xóa giỏ hàng của user hiện tại
-            var cartCookieName = GetCartCookieName();
-            if (cartCookieName != null)
-                HttpContext.Response.Cookies.Delete(cartCookieName);
+            // Xóa giỏ hàng của user trong Session sau khi đặt hàng thành công
+            var sessionKey = GetSessionKey();
+            if (sessionKey != null)
+                HttpContext.Session.Remove(sessionKey);
 
             TempData["Success"] = "Đặt hàng thành công! Đơn hàng của bạn đang chờ duyệt.";
             return RedirectToAction("OrderSuccess", new { orderId = order.Id });
