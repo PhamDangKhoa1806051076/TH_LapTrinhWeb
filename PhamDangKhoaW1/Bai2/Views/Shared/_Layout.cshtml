@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - WebsiteBanHang</title>
+    <meta name="description" content="WebsiteBanHang - Hệ thống quản lý và bán hàng trực tuyến" />
+
+    <!-- Google Font Inter (dùng cho thiết kế hiện đại) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap 5 CSS - framework giao diện chính -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
+    <!-- Bootstrap Icons - bộ icon miễn phí của Bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!-- DataTables Bootstrap5 CSS - dùng cho trang Product/Index -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css" />
+    <!-- CSS tùy chỉnh của dự án (wwwroot/css/site.css) -->
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+
+    <!--
+        ============================================================
+        CẤU TRÚC LAYOUT THEO GIÁO TRÌNH BÀI 2 (trang 21-23)
+        Kế thừa layout từ Bài 1 gồm 4 phần chính:
+          1. HEADER     - Tiêu đề trang web
+          2. NAVIGATION - Thanh điều hướng + nút toggle sidebar
+          3. BODY       - Nội dung chính + Sidebar bên phải
+          4. FOOTER     - Chân trang 3 cột
+        ============================================================
+    -->
+
+    <!-- ===== PHẦN 1: HEADER - Tiêu đề trang (theo Bài 1) ===== -->
+    <header class="site-header text-white text-center py-2">
+        <h1 class="mb-0">Trang Web Bán Hàng</h1>
+    </header>
+
+    <!-- ===== PHẦN 2: NAVIGATION - Navbar (theo Bài 1) ===== -->
+    <nav class="navbar navbar-expand-lg navbar-dark py-0">
+        <div class="container">
+            <div class="d-flex align-items-center">
+                <!--
+                    Nút toggle sidebar: khi click gọi hàm toggleSidebar()
+                    Hàm này toggle class "collapsed-sidebar" trên #sidebar-column
+                    CSS sẽ thu sidebar về width=0 với transition mượt mà
+                -->
+                <button class="btn text-white btn-sm me-2 toggle-btn border-0"
+                        onclick="toggleSidebar()"
+                        title="Ẩn/Hiện sidebar">
+                    <i class="bi bi-layout-sidebar-inset"></i>
+                </button>
+                <a class="navbar-brand fs-6 fw-bold" asp-controller="Home" asp-action="Index">
+                    <i class="bi bi-shop me-1"></i>WebsiteBanHang
+                </a>
+            </div>
+
+            <!-- Nút hamburger trên màn hình nhỏ -->
+            <button class="navbar-toggler" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Menu điều hướng -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link fs-6 py-1" asp-controller="Product" asp-action="Index">
+                            <i class="bi bi-grid-fill me-1"></i>Sản Phẩm
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link fs-6 py-1" asp-controller="Product" asp-action="Add">
+                            <i class="bi bi-plus-circle-fill me-1"></i>Thêm Sản Phẩm
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link fs-6 py-1" asp-controller="Home" asp-action="Privacy">
+                            <i class="bi bi-shield-lock-fill me-1"></i>Privacy
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!--
+        ===== PHẦN 3: BODY - Nội dung chính + Sidebar (theo Bài 1) =====
+        Cấu trúc 2 cột Bootstrap:
+          - .col (tự co giãn) : vùng main content chứa RenderBody()
+          - .col-auto         : sidebar bên phải, ẩn/hiện khi toggle
+
+        TẠI SAO FOOTER KHÔNG NẰM TRONG ĐÂY:
+        Footer phải nằm NGOÀI thẻ .content-wrapper này.
+        Nếu footer được đặt bên trong container của body+sidebar,
+        nó sẽ bị Bootstrap coi là một cột của hàng "row g-3"
+        → footer bị đẩy lên giữa giao diện (lỗi như ảnh chụp màn hình).
+        Giải pháp: footer đặt sau thẻ đóng của .content-wrapper.
+    -->
+    <div class="content-wrapper">
+        <div class="container mt-3 mb-4">
+            <div class="row g-3">
+
+                <!-- Cột nội dung chính: tự mở rộng khi sidebar bị ẩn -->
+                <div class="col product-area" id="main-content">
+                    <main role="main">
+                        @RenderBody()
+                    </main>
+                </div>
+
+                <!-- Cột sidebar bên phải (giống Bài 1) -->
+                <div class="col-auto" id="sidebar-column">
+                    <div class="sidebar-box">
+                        <!-- Danh mục sản phẩm -->
+                        <h6 class="fw-bold border-bottom pb-2 mb-3">
+                            <i class="bi bi-tags-fill me-1"></i>Phân Loại
+                        </h6>
+                        <ul class="list-unstyled mb-3">
+                            <li class="mb-2">
+                                <a asp-controller="Product" asp-action="Index" class="social-link">
+                                    <i class="bi bi-laptop me-1"></i>Laptops
+                                </a>
+                            </li>
+                            <li class="mb-2">
+                                <a asp-controller="Product" asp-action="Index" class="social-link">
+                                    <i class="bi bi-phone me-1"></i>Điện Thoại
+                                </a>
+                            </li>
+                            <li class="mb-2">
+                                <a asp-controller="Product" asp-action="Index" class="social-link">
+                                    <i class="bi bi-tablet me-1"></i>Máy Tính Bảng
+                                </a>
+                            </li>
+                        </ul>
+                        <hr class="border-white opacity-25">
+                        <!-- Liên kết mạng xã hội -->
+                        <h6 class="fw-bold border-bottom pb-2 mb-3">
+                            <i class="bi bi-share-fill me-1"></i>Social Media
+                        </h6>
+                        <ul class="list-unstyled mb-0">
+                            <li class="mb-1">
+                                <a href="#" class="social-link">
+                                    <i class="bi bi-facebook me-1"></i>Facebook
+                                </a>
+                            </li>
+                            <li class="mb-1">
+                                <a href="#" class="social-link">
+                                    <i class="bi bi-twitter me-1"></i>Twitter
+                                </a>
+                            </li>
+                            <li class="mb-1">
+                                <a href="#" class="social-link">
+                                    <i class="bi bi-instagram me-1"></i>Instagram
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div><!-- /.content-wrapper - Footer BẮT BUỘC phải nằm sau thẻ đóng này -->
+
+    <!--
+        ===== PHẦN 4: FOOTER - Chân trang 3 cột (theo Bài 1) =====
+        Nằm NGOÀI .content-wrapper, không bị ảnh hưởng bởi
+        row/col của phần Body ở trên.
+        Dùng col-4 * 3 = 12 cột Bootstrap → 3 cột đều nhau.
+    -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="row g-2">
+                <!-- Cột 1 -->
+                <div class="col-4">
+                    <div class="footer-col text-center py-2 rounded">
+                        <i class="bi bi-shop mb-1 d-block fs-5"></i>
+                        <p class="small mb-0 fw-semibold">WebsiteBanHang</p>
+                        <p class="small mb-0 text-white-50">&copy; 2026</p>
+                    </div>
+                </div>
+                <!-- Cột 2 -->
+                <div class="col-4">
+                    <div class="footer-col text-center py-2 rounded">
+                        <i class="bi bi-telephone mb-1 d-block fs-5"></i>
+                        <p class="small mb-0 fw-semibold">Liên Hệ</p>
+                        <p class="small mb-0 text-white-50">0123 456 789</p>
+                    </div>
+                </div>
+                <!-- Cột 3 -->
+                <div class="col-4">
+                    <div class="footer-col text-center py-2 rounded">
+                        <i class="bi bi-envelope mb-1 d-block fs-5"></i>
+                        <p class="small mb-0 fw-semibold">Email</p>
+                        <p class="small mb-0 text-white-50">info@websitebanhang.vn</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ===== SCRIPTS ===== -->
+    <!-- jQuery: bắt buộc load trước DataTables vì DataTables phụ thuộc vào jQuery -->
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap 5 JS bundle (đã bao gồm Popper.js) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- DataTables core engine -->
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <!-- DataTables adapter cho Bootstrap 5 (style phân trang, v.v.) -->
+    <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
+    <!-- JS tùy chỉnh của dự án -->
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <script>
+        /**
+         * toggleSidebar() - Lấy từ Bài 1
+         * --------------------------------
+         * Thêm/xóa class "collapsed-sidebar" vào #sidebar-column.
+         * CSS định nghĩa:
+         *   .collapsed-sidebar { width: 0; opacity: 0; overflow: hidden; }
+         * với transition: all 0.3s ease → hiệu ứng ẩn/hiện mượt mà.
+         * Khi sidebar ẩn, cột .col bên trái tự mở rộng toàn bộ chiều ngang.
+         */
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar-column');
+            sidebar.classList.toggle('collapsed-sidebar');
+        }
+    </script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

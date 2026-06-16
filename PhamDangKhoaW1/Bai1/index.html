@@ -1,0 +1,301 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Cáº¥u hÃ¬nh mÃ£ hÃ³a kÃ½ tá»± UTF-8 Ä‘á»ƒ hiá»ƒn thá»‹ tiáº¿ng Viá»‡t chÃ­nh xÃ¡c -->
+    <meta charset="UTF-8">
+    <!-- Cáº¥u hÃ¬nh viewport giÃºp trang web hiá»ƒn thá»‹ responsive tá»‘t trÃªn má»i thiáº¿t bá»‹ di Ä‘á»™ng -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coffee Tree</title>
+
+    <!-- NhÃºng thÆ° viá»‡n Bootstrap CSS phiÃªn báº£n 5.3.0 tá»« CDN Ä‘á»ƒ xÃ¢y dá»±ng giao diá»‡n -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <!-- NhÃºng bá»™ icon cá»§a Bootstrap (Bootstrap Icons) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+    <!-- NhÃºng file CSS tÃ¹y chá»‰nh riÃªng cá»§a dá»± Ã¡n -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Pháº§n Header chÃ­nh: hiá»ƒn thá»‹ tÃªn trang web, cÄƒn giá»¯a vÃ  Ä‘á»‹nh dáº¡ng chá»¯ tráº¯ng -->
+    <header class="text-white text-center py-2">
+        <h1 class="mb-0">Trang Web BÃ¡n HÃ ng</h1>
+    </header>
+
+    <!-- Thanh menu Ä‘iá»u hÆ°á»›ng (Navbar) tÃ­ch há»£p responsive vÃ  nÃºt Toggle thu gá»n sidebar -->
+    <nav class="navbar navbar-expand-lg navbar-dark py-0">
+        <div class="container">
+            <div class="d-flex align-items-center">
+                <button type="button" class="btn text-white btn-sm me-2 toggle-btn border-0" onclick="toggleSidebar()" title="áº¨n/Hiá»‡n sidebar" aria-label="áº¨n/Hiá»‡n sidebar">
+                    <i class="bi bi-layout-sidebar-inset"></i>
+                </button>
+                <a class="navbar-brand fs-6" href="#">Trang Chá»§</a>
+            </div>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link fs-6 py-1" href="#">Sáº£n Pháº©m</a></li>
+                    <li class="nav-item"><a class="nav-link fs-6 py-1" href="#">LiÃªn Há»‡</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-3">
+        <div class="row g-3">
+            <!-- Danh sÃ¡ch sáº£n pháº©m: Tá»± Ä‘á»™ng co giÃ£n theo khÃ´ng gian cÃ²n láº¡i khi áº©n/hiá»‡n sidebar -->
+            <div class="col product-area" id="main-content">
+                <!-- Há»‡ thá»‘ng lÆ°á»›i: hiá»ƒn thá»‹ 2 cá»™t trÃªn Ä‘iá»‡n thoáº¡i, 3 cá»™t trÃªn tablet vÃ  4 cá»™t trÃªn mÃ¡y tÃ­nh lá»›n -->
+                <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-2">
+                    <!-- Sáº£n pháº©m 1 -->
+                    <div class="col">
+                        <div class="card h-100 shadow-sm border-0 product-card">
+                            <a href="product-detail.html?id=1">
+                                <img src="https://bizweb.dktcdn.net/thumb/grande/100/468/889/products/ca-phe-espresso-huong-vi-kho-quen.jpg?v=1669952259183"
+                                    class="card-img-top" alt="Espresso">
+                            </a>
+                            <div class="card-body p-2">
+                                <a href="product-detail.html?id=1" class="text-decoration-none text-dark">
+                                    <h5 class="card-title text-truncate">CÃ  PhÃª Espresso</h5>
+                                </a>
+                                <p class="card-text">Äáº­m Ä‘áº·c nguyÃªn cháº¥t, ná»n táº£ng cá»§a má»i loáº¡i cÃ  phÃª.</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="h6 mb-0">35.000Ä‘</span>
+                                    <div class="rating-stars">
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-half text-warning"></i>
+                                        <small class="text-muted">(4.5)</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer d-flex justify-content-between bg-light p-2">
+                                <a href="product-detail.html?id=1" class="btn btn-primary btn-sm">
+                                    <i class="bi bi-eye me-1"></i>Xem chi tiáº¿t
+                                </a>
+                                <button type="button" class="btn btn-outline-secondary btn-sm px-2" title="Yêu thích" aria-label="Thêm vào yêu thích"><i class="bi bi-heart"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Sáº£n pháº©m 2 -->
+                    <div class="col">
+                        <div class="card h-100 shadow-sm border-0 product-card">
+                            <a href="product-detail.html?id=2">
+                                <img src="https://quantra.vn/wp-content/uploads/2025/04/matcha_latte2.jpg"
+                                    class="card-img-top" alt="Matcha Latte">
+                            </a>
+                            <div class="card-body p-2">
+                                <a href="product-detail.html?id=2" class="text-decoration-none text-dark">
+                                    <h5 class="card-title text-truncate">Matcha Latte</h5>
+                                </a>
+                                <p class="card-text">Sá»± hÃ²a quyá»‡n giá»¯a Matcha vÃ  sá»¯a tÆ°Æ¡i má»‹n mÃ ng.</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="h6 mb-0">55.000Ä‘</span>
+                                    <div class="rating-stars">
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <small class="text-muted">(5.0)</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer d-flex justify-content-between bg-light p-2">
+                                <a href="product-detail.html?id=2" class="btn btn-primary btn-sm">
+                                    <i class="bi bi-eye me-1"></i>Xem chi tiáº¿t
+                                </a>
+                                <button type="button" class="btn btn-outline-secondary btn-sm px-2" title="Yêu thích" aria-label="Thêm vào yêu thích"><i class="bi bi-heart"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Sáº£n pháº©m 3 -->
+                    <div class="col">
+                        <div class="card h-100 shadow-sm border-0 product-card">
+                            <a href="product-detail.html?id=3">
+                                <img src="https://vinbarista.com/uploads/news/ca-phe-latte-la-gi-latte-co-vi-gi-latte-khac-gi-capuchino-202408161122_thumb.jpg"
+                                    class="card-img-top" alt="Cappuccino">
+                            </a>
+                            <div class="card-body p-2">
+                                <a href="product-detail.html?id=3" class="text-decoration-none text-dark">
+                                    <h5 class="card-title text-truncate">CÃ  PhÃª Cappuccino</h5>
+                                </a>
+                                <p class="card-text">Lá»›p bá»t sá»¯a dÃ y bá»“ng bá»nh trÃªn ná»n Espresso Ä‘áº­m Ä‘Ã .</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="h6 mb-0">40.000Ä‘</span>
+                                    <div class="rating-stars">
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-half text-warning"></i>
+                                        <small class="text-muted">(4.2)</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer d-flex justify-content-between bg-light p-2">
+                                <a href="product-detail.html?id=3" class="btn btn-primary btn-sm">
+                                    <i class="bi bi-eye me-1"></i>Xem chi tiáº¿t
+                                </a>
+                                <button type="button" class="btn btn-outline-secondary btn-sm px-2" title="Yêu thích" aria-label="Thêm vào yêu thích"><i class="bi bi-heart"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Sáº£n pháº©m 4 -->
+                    <div class="col">
+                        <div class="card h-100 shadow-sm border-0 product-card">
+                            <a href="product-detail.html?id=4">
+                                <img src="https://www.cubes-asia.com/storage/blogs/2023/cafe-americano.jpg"
+                                    class="card-img-top" alt="Americano">
+                            </a>
+                            <div class="card-body p-2">
+                                <a href="product-detail.html?id=4" class="text-decoration-none text-dark">
+                                    <h5 class="card-title text-truncate">CÃ  PhÃª Americano</h5>
+                                </a>
+                                <p class="card-text">Espresso pha loÃ£ng, mang láº¡i hÆ°Æ¡ng vá»‹ thanh khiáº¿t.</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="h6 mb-0">30.000Ä‘</span>
+                                    <div class="rating-stars">
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star text-warning"></i>
+                                        <small class="text-muted">(4.0)</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer d-flex justify-content-between bg-light p-2">
+                                <a href="product-detail.html?id=4" class="btn btn-primary btn-sm">
+                                    <i class="bi bi-eye me-1"></i>Xem chi tiáº¿t
+                                </a>
+                                <button type="button" class="btn btn-outline-secondary btn-sm px-2" title="Yêu thích" aria-label="Thêm vào yêu thích"><i class="bi bi-heart"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Sáº£n pháº©m 5 -->
+                    <div class="col">
+                        <div class="card h-100 shadow-sm border-0 product-card">
+                            <a href="product-detail.html?id=5">
+                                <img src="https://lypham.vn/wp-content/uploads/2024/09/cach-lam-bac-xiu-da.jpg"
+                                    class="card-img-top" alt="Báº¡c xá»‰u">
+                            </a>
+                            <div class="card-body p-2">
+                                <a href="product-detail.html?id=5" class="text-decoration-none text-dark">
+                                    <h5 class="card-title text-truncate">Báº¡c xá»‰u</h5>
+                                </a>
+                                <p class="card-text">Sá»± káº¿t há»£p ngá»t ngÃ o giá»¯a cÃ  phÃª vÃ  sá»¯a.</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="h6 mb-0">35.000Ä‘</span>
+                                    <div class="rating-stars">
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <small class="text-muted">(4.8)</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer d-flex justify-content-between bg-light p-2">
+                                <a href="product-detail.html?id=5" class="btn btn-primary btn-sm">
+                                    <i class="bi bi-eye me-1"></i>Xem chi tiáº¿t
+                                </a>
+                                <button type="button" class="btn btn-outline-secondary btn-sm px-2" title="Yêu thích" aria-label="Thêm vào yêu thích"><i class="bi bi-heart"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Sáº£n pháº©m 6 -->
+                    <div class="col">
+                        <div class="card h-100 shadow-sm border-0 product-card">
+                            <a href="product-detail.html?id=6">
+                                <img src="https://www.siftandsimmer.com/wp-content/uploads/2022/11/vietnamese-coffee1.jpg"
+                                    class="card-img-top" alt="CÃ  PhÃª Äen ÄÃ¡">
+                            </a>
+                            <div class="card-body p-2">
+                                <a href="product-detail.html?id=6" class="text-decoration-none text-dark">
+                                    <h5 class="card-title text-truncate">CÃ  PhÃª Äen ÄÃ¡</h5>
+                                </a>
+                                <p class="card-text">HÆ°Æ¡ng vá»‹ truyá»n thá»‘ng Viá»‡t Nam, Ä‘áº­m Ä‘Ã  vÃ  sáº£ng khoÃ¡i.</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="h6 mb-0">25.000Ä‘</span>
+                                    <div class="rating-stars">
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <small class="text-muted">(5.0)</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer d-flex justify-content-between bg-light p-2">
+                                <a href="product-detail.html?id=6" class="btn btn-primary btn-sm">
+                                    <i class="bi bi-eye me-1"></i>Xem chi tiáº¿t
+                                </a>
+                                <button type="button" class="btn btn-outline-secondary btn-sm px-2" title="Yêu thích" aria-label="Thêm vào yêu thích"><i class="bi bi-heart"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar Column -->
+            <div class="col-auto" id="sidebar-column">
+                <div class="bg-primary text-white p-2 rounded shadow-sm sidebar-box">
+                    <h6 class="fw-bold border-bottom pb-1 mb-2">Social Media</h6>
+                    <ul class="list-unstyled mb-0">
+                        <li class="mb-1"><a href="#" class="text-white text-decoration-none">Facebook</a></li>
+                        <li class="mb-1"><a href="#" class="text-white text-decoration-none">Twitter</a></li>
+                        <li class="mb-1"><a href="#" class="text-white text-decoration-none">Instagram</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pháº§n footer: hiá»ƒn thá»‹ thÃ´ng tin chÃ¢n trang chia lÃ m 3 cá»™t báº±ng lÆ°á»›i Bootstrap -->
+    <footer class="mt-4 mb-0">
+        <div class="container">
+            <div class="row g-2">
+                <div class="col-4">
+                    <div class="footer-col text-center py-2 rounded">
+                        <i class="bi bi-shop mb-1 d-block fs-5"></i>
+                        <p class="small mb-0 fw-semibold">Coffee Tree</p>
+                        <p class="small mb-0 text-white-50">&copy; 2026</p>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="footer-col text-center py-2 rounded">
+                        <i class="bi bi-telephone mb-1 d-block fs-5"></i>
+                        <p class="small mb-0 fw-semibold">LiÃªn Há»‡</p>
+                        <p class="small mb-0 text-white-50">0123 456 789</p>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="footer-col text-center py-2 rounded">
+                        <i class="bi bi-envelope mb-1 d-block fs-5"></i>
+                        <p class="small mb-0 fw-semibold">Email</p>
+                        <p class="small mb-0 text-white-50">info@coffeetree.vn</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Sá»­ dá»¥ng Bootstrap JS vÃ  Popper.js -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar-column');
+            sidebar.classList.toggle('collapsed-sidebar');
+        }
+    </script>
+</body>
+
+</html>

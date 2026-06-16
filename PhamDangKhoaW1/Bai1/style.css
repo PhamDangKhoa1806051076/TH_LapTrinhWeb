@@ -1,0 +1,121 @@
+:root {
+    /* Định nghĩa bảng màu chủ đạo (CSS Variables) của trang web Coffee Tree */
+    --primary-green: #2ecc71; /* Màu xanh lá tươi tắn, sống động làm thương hiệu chính */
+    --nav-dark: #1e272e;      /* Màu xanh đen hiện đại thay thế cho màu nâu truyền thống */
+    --slate-gray: #455A64;    /* Màu xám đá phiến dùng cho các thành phần trung tính */
+    --dark-bg: #333333;       /* Tông màu nền tối dùng cho footer */
+}
+
+body {
+    background-color: #f4f7f6;
+    font-family: Arial, sans-serif;
+}
+
+header {
+    background-color: var(--primary-green) !important;
+}
+
+nav.navbar {
+    background-color: var(--nav-dark) !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.card-title {
+    font-size: 0.95rem;
+    font-weight: bold;
+    margin-bottom: 0.25rem;
+}
+
+.card-text {
+    font-size: 0.8rem;
+    color: #666;
+    line-height: 1.2;
+    height: 2.4rem;
+    overflow: hidden;
+}
+
+/* Fix chiều cao ảnh để danh sách luôn đều nhau */
+.product-card img {
+    height: 160px;
+    object-fit: cover;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    transition: 0.3s;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12) !important;
+}
+
+.btn-buy {
+    background-color: var(--primary-green);
+    color: white;
+}
+
+.btn-buy:hover {
+    background-color: #27ae60;
+    color: white;
+}
+
+.sidebar-box {
+    font-size: 0.85rem;
+    min-width: 180px;
+}
+
+.rating-stars i {
+    font-size: 0.7rem;
+}
+
+/* Hiệu ứng chuyển động mượt mà (transition animation) khi ẩn/hiện Sidebar */
+#sidebar-column {
+    transition: all 0.3s ease;
+}
+
+/* Các thuộc tính CSS được áp dụng khi Sidebar ở trạng thái thu gọn */
+.collapsed-sidebar {
+    width: 0;
+    padding: 0 !important;
+    overflow: hidden; /* Ẩn các thành phần con vượt quá giới hạn rộng bằng 0 */
+    opacity: 0;       /* Làm mờ hẳn Sidebar khi ẩn */
+    margin-left: -1rem;
+}
+
+.product-area {
+    transition: all 0.3s ease;
+}
+
+.toggle-btn {
+    cursor: pointer;
+    z-index: 1000;
+}
+
+.toggle-btn:focus, .toggle-btn:active {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.social-link {
+    color: #e0e0e0;
+    text-decoration: none;
+    display: block;
+    padding: 8px;
+    margin-bottom: 5px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+}
+
+.social-link:hover {
+    background: var(--primary-green);
+    color: white;
+}
+
+/* ===== FOOTER ===== */
+footer {
+    background-color: var(--nav-dark);
+    color: white;
+    padding: 12px 0;
+}
+
+.footer-col {
+    background: rgba(255, 255, 255, 0.07);
+    color: white;
+}

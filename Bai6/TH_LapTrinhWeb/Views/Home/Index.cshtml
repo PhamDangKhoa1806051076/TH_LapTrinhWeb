@@ -1,0 +1,168 @@
+@model IEnumerable<PhamDangKhoa_W345_C2.Models.Product>
+@{
+    ViewData["Title"] = "Trang chủ";
+}
+
+<!-- Hero Banner Section -->
+<div class="container mt-3 mb-5">
+    <div id="heroCarousel" class="carousel slide rounded-4 overflow-hidden shadow-sm" data-bs-ride="carousel" data-bs-interval="5000">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
+        </div>
+        <div class="carousel-inner" style="height: 450px;">
+            <div class="carousel-item active h-100">
+                <img src="/images/laptopbanner.jpg" class="d-block w-100 h-100 object-fit-cover" alt="Hero 1">
+                <div class="carousel-caption d-none d-md-block text-start p-5" style="background: linear-gradient(to right, rgba(0,0,0,0.8), transparent); left: 0; right: 0; bottom: 0; top: 0; display: flex !important; flex-direction: column; justify-content: center;">
+                    <h1 class="fw-bold text-white display-4 mb-3" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">Đại Tiệc Công Nghệ</h1>
+                    <p class="fs-4 text-light mb-4" style="max-width: 600px;">Giảm giá cực sốc lên đến 50% cho các dòng Laptop Gaming và Phụ kiện cao cấp.</p>
+                    <div>
+                        <a asp-controller="Product" asp-action="List" class="btn btn-primary btn-lg rounded-pill px-5 fw-bold shadow">Khám phá ngay</a>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item h-100">
+                <img src="/images/pcbanner.jpg" class="d-block w-100 h-100 object-fit-cover" alt="Hero 2">
+                <div class="carousel-caption d-none d-md-block text-start p-5" style="background: linear-gradient(to right, rgba(0,0,0,0.8), transparent); left: 0; right: 0; bottom: 0; top: 0; display: flex !important; flex-direction: column; justify-content: center;">
+                    <h1 class="fw-bold text-white display-4 mb-3" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">Không Gian Làm Việc Hoàn Hảo</h1>
+                    <p class="fs-4 text-light mb-4" style="max-width: 600px;">Nâng tầm góc máy của bạn với những trang bị tân tiến nhất hiện nay.</p>
+                    <div>
+                        <a asp-controller="Product" asp-action="List" asp-route-categoryId="2" class="btn btn-light btn-lg rounded-pill px-5 fw-bold text-primary shadow">Xem PC & Màn hình</a>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item h-100">
+                <img src="/images/gaminggearbanner.jpg" class="d-block w-100 h-100 object-fit-cover" alt="Hero 3">
+                <div class="carousel-caption d-none d-md-block text-start p-5" style="background: linear-gradient(to right, rgba(0,0,0,0.8), transparent); left: 0; right: 0; bottom: 0; top: 0; display: flex !important; flex-direction: column; justify-content: center;">
+                    <h1 class="fw-bold text-white display-4 mb-3" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">Trải Nghiệm Đỉnh Cao</h1>
+                    <p class="fs-4 text-light mb-4" style="max-width: 600px;">Bàn phím cơ, chuột không dây và tai nghe chống ồn siêu cấp.</p>
+                    <div>
+                        <a asp-controller="Product" asp-action="List" asp-route-categoryId="3" class="btn btn-danger btn-lg rounded-pill px-5 fw-bold shadow">Sắm Gaming Gear</a>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item h-100">
+                <img src="/images/linhkienbanner.jpg" class="d-block w-100 h-100 object-fit-cover" alt="Hero 4">
+                <div class="carousel-caption d-none d-md-block text-start p-5" style="background: linear-gradient(to right, rgba(0,0,0,0.8), transparent); left: 0; right: 0; bottom: 0; top: 0; display: flex !important; flex-direction: column; justify-content: center;">
+                    <h1 class="fw-bold text-white display-4 mb-3" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">Linh Kiện Chính Hãng</h1>
+                    <p class="fs-4 text-light mb-4" style="max-width: 600px;">RAM, SSD, Card đồ họa, Mainboard — đầy đủ linh kiện nâng cấp PC của bạn.</p>
+                    <div>
+                        <a asp-controller="Product" asp-action="List" asp-route-categoryId="4" class="btn btn-warning btn-lg rounded-pill px-5 fw-bold shadow text-dark">Xem Linh Kiện</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true" style="width: 3rem; height: 3rem;"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true" style="width: 3rem; height: 3rem;"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+</div>
+
+<!-- Quick Categories -->
+<div class="container mb-5">
+    <div class="row g-4 text-center">
+        <div class="col-6 col-md-3">
+            <a asp-controller="Product" asp-action="List" asp-route-categoryId="1" class="text-decoration-none">
+                <div class="p-4 bg-light rounded-4 shadow-sm h-100" style="transition: transform 0.2s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+                    <i class="fa-solid fa-laptop fs-1 text-primary mb-3"></i>
+                    <h5 class="fw-bold text-dark m-0">Laptop</h5>
+                </div>
+            </a>
+        </div>
+        <div class="col-6 col-md-3">
+            <a asp-controller="Product" asp-action="List" asp-route-categoryId="2" class="text-decoration-none">
+                <div class="p-4 bg-light rounded-4 shadow-sm h-100" style="transition: transform 0.2s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+                    <i class="fa-solid fa-desktop fs-1 text-success mb-3"></i>
+                    <h5 class="fw-bold text-dark m-0">Máy Bàn & Linh Kiện</h5>
+                </div>
+            </a>
+        </div>
+        <div class="col-6 col-md-3">
+            <a asp-controller="Product" asp-action="List" asp-route-categoryId="3" class="text-decoration-none">
+                <div class="p-4 bg-light rounded-4 shadow-sm h-100" style="transition: transform 0.2s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+                    <i class="fa-solid fa-headset fs-1 text-danger mb-3"></i>
+                    <h5 class="fw-bold text-dark m-0">Gaming Gear</h5>
+                </div>
+            </a>
+        </div>
+        <div class="col-6 col-md-3">
+            <a asp-controller="Product" asp-action="List" class="text-decoration-none">
+                <div class="p-4 bg-light rounded-4 shadow-sm h-100" style="transition: transform 0.2s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+                    <i class="fa-solid fa-tags fs-1 text-warning mb-3"></i>
+                    <h5 class="fw-bold text-dark m-0">Tất cả sản phẩm</h5>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Promo Banner Horizontal -->
+<div class="container mb-5">
+    <div class="rounded-4 overflow-hidden shadow-sm position-relative" style="height: 150px; background: linear-gradient(135deg, #e31e24, #ff6b35);">
+        <div class="d-flex align-items-center justify-content-between h-100 px-5 text-white">
+            <div>
+                <h3 class="fw-bold mb-1">Giao hàng ngay trong ngày</h3>
+                <p class="m-0 opacity-90">Áp dụng ở nội thành TP.HCM và Hà Nội</p>
+                <p class="m-0 opacity-75" style="font-size: 13px;">Các tỉnh thành khác sẽ từ 3-4 ngày tùy tỉnh thành và điều kiện thời tiết</p>
+            </div>
+            <i class="fa-solid fa-truck-fast fa-4x opacity-50"></i>
+        </div>
+    </div>
+</div>
+
+<!-- Featured Products Section -->
+<main class="container my-5">
+    <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3">
+        <h3 class="fw-bold mb-0">Sản phẩm nổi bật</h3>
+        <a asp-controller="Product" asp-action="List" class="text-primary text-decoration-none fw-bold">Xem tất cả <i class="fa-solid fa-arrow-right ms-1"></i></a>
+    </div>
+    
+    <div class="row g-4">
+        @foreach (var product in Model)
+        {
+            <div class="col-6 col-md-4 col-lg-3">
+                <div class="product-card h-100 shadow-sm border-0 bg-white" style="transition: box-shadow 0.3s;" onmouseover="this.classList.add('shadow')" onmouseout="this.classList.remove('shadow')">
+                    <div class="position-relative">
+                        @if (!string.IsNullOrEmpty(product.ImageUrl))
+                        {
+                            <img src="@product.ImageUrl" alt="@product.Name" class="w-100" style="height: 220px; object-fit: contain; padding: 15px;">
+                        }
+                        else
+                        {
+                            <div class="bg-light d-flex align-items-center justify-content-center text-muted" style="height: 220px; width: 100%;">
+                                <i class="fa-solid fa-image fa-3x"></i>
+                            </div>
+                        }
+                        <span class="badge bg-danger position-absolute top-0 start-0 m-3 px-2 py-1">Hot</span>
+                    </div>
+                    
+                    <div class="card-content p-3 pt-0 d-flex flex-column" style="height: calc(100% - 220px);">
+                        <h6 class="fw-bold text-dark text-truncate mb-2" title="@product.Name">@product.Name</h6>
+                        <p class="price fs-5 text-primary fw-bold mb-3 mt-auto">@product.Price.ToString("#,##0") ₫</p>
+                        <div class="d-flex gap-2">
+                            <a asp-controller="Product" asp-action="Display" asp-route-id="@product.Id" class="btn btn-outline-primary btn-sm rounded-pill flex-grow-1 fw-bold">Chi tiết</a>
+                            <form asp-controller="Cart" asp-action="AddToCart" method="post" class="flex-grow-1 m-0">
+                                <input type="hidden" name="productId" value="@product.Id" />
+                                <input type="hidden" name="quantity" value="1" />
+                                <button type="submit" class="btn btn-primary btn-sm rounded-pill w-100 fw-bold"><i class="fa-solid fa-cart-plus"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        @if(!Model.Any()) {
+            <div class="col-12 text-center text-muted py-5">
+                <i class="fa-solid fa-box-open fs-1 mb-3 text-light"></i>
+                <p>Chưa có sản phẩm nào.</p>
+            </div>
+        }
+    </div>
+</main>

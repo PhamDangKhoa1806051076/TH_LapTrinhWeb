@@ -1,0 +1,211 @@
+@model PhamDangKhoa_W345_C2.Models.Product
+@using Microsoft.AspNetCore.Mvc.Rendering
+@{
+    ViewData["Title"] = "Cập nhật sản phẩm";
+    
+    // Gom tất cả ảnh lại để hiển thị
+    var allImages = new List<string>();
+    if (!string.IsNullOrEmpty(Model.ImageUrl)) allImages.Add(Model.ImageUrl);
+    if (Model.ImageUrls != null && Model.ImageUrls.Any()) allImages.AddRange(Model.ImageUrls);
+}
+
+<style>
+    .image-box {
+        position: relative;
+        width: 140px;
+        height: 160px;
+        background-color: #e9ecef;
+        border-radius: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+    .image-box img {
+        width: 100px;
+        height: 100px;
+        object-fit: contain;
+        background-color: #fff;
+        border-radius: 5px;
+    }
+    .image-box .delete-btn {
+        position: absolute;
+        top: -8px;
+        right: -8px;
+        background-color: #ff4d4f;
+        color: white;
+        border-radius: 50%;
+        width: 24px;
+        height: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        font-size: 12px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+    .radio-label {
+        font-size: 13px;
+        color: #6c757d;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        cursor: pointer;
+        margin-bottom: 0;
+    }
+</style>
+
+<main class="container-fluid px-4 my-4">
+    <div class="d-flex align-items-center mb-4">
+        <i class="fa-solid fa-shield-halved fs-3 me-2"></i>
+        <h4 class="fw-bold mb-0">Admin Panel</h4>
+    </div>
+
+    <div class="card shadow-sm border-0 rounded-4 mx-auto" style="max-width: 900px;">
+        <div class="card-body p-4 p-md-5">
+            <form asp-action="Update" enctype="multipart/form-data" id="productForm">
+                <input type="hidden" asp-for="Id" />
+                <input type="hidden" name="deletedImages" id="deletedImagesInput" value="" />
+                
+                <div asp-validation-summary="All" class="alert alert-danger mb-4 rounded-3 border-0" style="display: @(ViewData.ModelState.IsValid ? "none" : "block")"></div>
+                
+                <!-- Hình ảnh hiện tại -->
+                <div class="mb-4">
+                    <label class="form-label fw-bold text-secondary mb-3">Hình ảnh hiện tại (Chọn để làm ảnh chính)</label>
+                    <div class="d-flex flex-wrap gap-3 p-3 border rounded-3 bg-light" id="currentImagesContainer">
+                        @if (allImages.Any())
+                        {
+                            foreach (var img in allImages)
+                            {
+                                <div class="image-box current-img-box" data-url="@img">
+                                    <div class="delete-btn" onclick="deleteExistingImage(this, '@img')"><i class="fa-solid fa-xmark"></i></div>
+                                    <img src="@img" />
+                                    <label class="radio-label mt-2">
+                                        <input type="radio" name="mainImageIdentifier" value="@img" @(img == Model.ImageUrl ? "checked" : "") />
+                                        Ảnh chính
+                                    </label>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <div class="text-muted w-100 text-center py-3" id="noImgText">Chưa có hình ảnh nào.</div>
+                        }
+                    </div>
+                </div>
+
+                <div class="row g-4 mb-4">
+                    <div class="col-12">
+                        <label asp-for="Name" class="form-label fw-bold text-secondary">Tên Sản Phẩm <span class="text-danger">*</span></label>
+                        <input asp-for="Name" class="form-control form-control-lg border-0 shadow-sm" style="background-color: #f8f9fa;" />
+                        <span asp-validation-for="Name" class="text-danger small mt-1 d-block"></span>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <label asp-for="CategoryId" class="form-label fw-bold text-secondary">Danh Mục</label>
+                        <select asp-for="CategoryId" asp-items="ViewBag.Categories" class="form-select form-select-lg border-0 shadow-sm" style="background-color: #f8f9fa;"></select>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label asp-for="Price" class="form-label fw-bold text-secondary">Giá bán (VND) <span class="text-danger">*</span></label>
+                        <input asp-for="Price" class="form-control form-control-lg border-0 shadow-sm" style="background-color: #f8f9fa;" />
+                        <span asp-validation-for="Price" class="text-danger small mt-1 d-block"></span>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label asp-for="Quantity" class="form-label fw-bold text-secondary">Số lượng kho <span class="text-danger">*</span></label>
+                        <input asp-for="Quantity" type="number" min="0" class="form-control form-control-lg border-0 shadow-sm" style="background-color: #f8f9fa;" />
+                        <span asp-validation-for="Quantity" class="text-danger small mt-1 d-block"></span>
+                    </div>
+
+                    <div class="col-12">
+                        <label asp-for="Description" class="form-label fw-bold text-secondary">Mô tả chi tiết</label>
+                        <textarea asp-for="Description" class="form-control form-control-lg border-0 shadow-sm" style="background-color: #f8f9fa;" rows="3"></textarea>
+                        <span asp-validation-for="Description" class="text-danger small mt-1 d-block"></span>
+                    </div>
+                </div>
+
+                <!-- Tải lên hình ảnh mới -->
+                <div class="mb-5">
+                    <label class="form-label fw-bold text-secondary mb-3">Tải lên hình ảnh mới</label>
+                    <div class="p-3 border rounded-3 bg-light shadow-sm">
+                        <input type="file" name="newFiles" id="newFiles" class="form-control mb-3" multiple accept="image/*" />
+                        <small class="text-muted">Bạn có thể tải thêm nhiều ảnh. Nếu muốn dùng ảnh mới làm ảnh chính, hãy chọn bên dưới.</small>
+                        
+                        <div class="d-flex flex-wrap gap-3 mt-3 d-none" id="newImagesContainer">
+                            <!-- New images preview will be appended here -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center pt-3 border-top">
+                    <a asp-action="Index" class="btn btn-outline-secondary px-4 py-2 fw-bold">Hủy bỏ</a>
+                    <button type="submit" class="btn btn-primary px-5 py-2 fw-bold shadow">Lưu thay đổi</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+
+@section Scripts {
+    <script>
+        let deletedImages = [];
+        
+        function deleteExistingImage(btn, url) {
+            // Thêm url vào mảng deleted
+            deletedImages.push(url);
+            document.getElementById('deletedImagesInput').value = deletedImages.join(';');
+            
+            // Xóa thẻ DOM
+            let box = btn.closest('.image-box');
+            
+            // Nếu ảnh đang bị xóa là ảnh chính, hãy bỏ check
+            let radio = box.querySelector('input[type="radio"]');
+            if (radio && radio.checked) {
+                radio.checked = false;
+            }
+            
+            box.remove();
+            
+            // Nếu hết ảnh, hiển thị chữ
+            if(document.querySelectorAll('.current-img-box').length === 0) {
+                let txt = document.getElementById('noImgText');
+                if(txt) txt.style.display = 'block';
+            }
+        }
+
+        document.getElementById('newFiles').addEventListener('change', function(e) {
+            const container = document.getElementById('newImagesContainer');
+            container.innerHTML = ''; 
+            const files = e.target.files;
+            
+            if (files.length > 0) {
+                container.classList.remove('d-none');
+                
+                Array.from(files).forEach((file, index) => {
+                    const reader = new FileReader();
+                    reader.onload = function(event) {
+                        // Tạo image box
+                        const box = document.createElement('div');
+                        box.className = 'image-box border-primary';
+                        box.style.borderStyle = 'dashed';
+                        
+                        box.innerHTML = `
+                            <img src="${event.target.result}" />
+                            <label class="radio-label mt-2 text-primary fw-bold">
+                                <input type="radio" name="mainImageIdentifier" value="new_${index}" />
+                                Ảnh chính
+                            </label>
+                        `;
+                        container.appendChild(box);
+                    };
+                    reader.readAsDataURL(file);
+                });
+            } else {
+                container.classList.add('d-none');
+            }
+        });
+    </script>
+}

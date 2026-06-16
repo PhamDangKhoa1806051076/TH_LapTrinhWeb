@@ -1,0 +1,16 @@
+@{
+    ViewData["Title"] = "Đặt hàng thành công";
+}
+
+<main class="container my-5 text-center" style="min-height: 60vh; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+    <div class="mb-4">
+        <i class="fa-solid fa-circle-check text-success" style="font-size: 5rem;"></i>
+    </div>
+    <h2 class="fw-bold mb-3">Đặt hàng thành công!</h2>
+    <p class="fs-5 text-muted mb-4">Cảm ơn bạn đã mua sắm tại cửa hàng. Đơn hàng <strong>#@ViewBag.OrderId</strong> của bạn đã được ghi nhận và đang chờ duyệt.</p>
+    
+    <div>
+        <a asp-controller="Product" asp-action="List" class="btn btn-primary rounded-pill px-5 py-2 fw-bold me-2">Tiếp tục mua sắm</a>
+        <!-- Có thể thêm nút Xem đơn hàng của tôi ở đây sau này -->
+    </div>
+</main>

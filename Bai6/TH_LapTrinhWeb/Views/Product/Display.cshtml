@@ -1,0 +1,256 @@
+@model PhamDangKhoa_W345_C2.Models.Product
+@{
+    ViewData["Title"] = Model.Name;
+    var relatedProducts = ViewBag.RelatedProducts as IEnumerable<PhamDangKhoa_W345_C2.Models.Product>;
+    
+    // Gom tất cả ảnh lại để hiển thị
+    var allImages = new List<string>();
+    if (!string.IsNullOrEmpty(Model.ImageUrl)) allImages.Add(Model.ImageUrl);
+    if (Model.ImageUrls != null && Model.ImageUrls.Any()) allImages.AddRange(Model.ImageUrls);
+}
+
+<style>
+    .display-main-section {
+        background-color: #f8f9fa;
+        padding: 3rem 0;
+        margin-top: -1.5rem; /* Kéo lên sát header nếu có thể */
+        border-bottom: 1px solid #e9ecef;
+    }
+    .main-image-container {
+        background-color: #ffffff;
+        border-radius: 20px;
+        padding: 2rem;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        height: 500px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .main-image-container img {
+        max-height: 100%;
+        max-width: 100%;
+        object-fit: contain;
+        transition: transform 0.3s ease;
+    }
+    .main-image-container img:hover {
+        transform: scale(1.05);
+    }
+    .thumb-btn {
+        width: 80px;
+        height: 80px;
+        border-radius: 12px;
+        border: 2px solid transparent;
+        background-color: #fff;
+        padding: 5px;
+        cursor: pointer;
+        transition: all 0.2s;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+    .thumb-btn img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+    .thumb-btn.active {
+        border-color: var(--primary-color, #0d6efd);
+        transform: translateY(-2px);
+    }
+    
+    .product-title {
+        font-size: 2.5rem;
+        font-weight: 800;
+        letter-spacing: -0.5px;
+        line-height: 1.2;
+        margin-bottom: 1rem;
+    }
+    .product-price {
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--primary-color, #0d6efd);
+    }
+    .btn-buy {
+        background-color: var(--primary-color, #0d6efd);
+        color: white;
+        font-weight: 700;
+        letter-spacing: 1px;
+        padding: 1rem 2rem;
+        border-radius: 50px;
+        transition: all 0.3s;
+        box-shadow: 0 8px 20px rgba(13, 110, 253, 0.3);
+    }
+    .btn-buy:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(13, 110, 253, 0.4);
+        color: white;
+    }
+    .specs-card {
+        background-color: #fff;
+        border-radius: 16px;
+        padding: 1.5rem;
+        border: 1px solid #e9ecef;
+    }
+</style>
+
+<!-- Phần chính: Ảnh và Mua hàng -->
+<section class="display-main-section">
+    <div class="container">
+        <!-- Breadcrumb -->
+        <nav aria-label="breadcrumb" class="mb-4">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index" class="text-decoration-none text-muted">Trang chủ</a></li>
+                <li class="breadcrumb-item"><a asp-controller="Product" asp-action="List" class="text-decoration-none text-muted">Sản phẩm</a></li>
+                <li class="breadcrumb-item active fw-medium" aria-current="page">@Model.Name</li>
+            </ol>
+        </nav>
+
+        <div class="row g-5 align-items-center">
+            <!-- Cột ảnh (Trái) -->
+            <div class="col-lg-6">
+                <div class="main-image-container mb-4">
+                    @if (allImages.Any())
+                    {
+                        <img id="mainImage" src="@allImages.First()" alt="@Model.Name" />
+                    }
+                    else
+                    {
+                        <div class="text-muted d-flex flex-column align-items-center">
+                            <i class="fa-solid fa-image fa-4x mb-2"></i>
+                            <span>Chưa có hình ảnh</span>
+                        </div>
+                    }
+                </div>
+
+                @if (allImages.Count > 1)
+                {
+                    <div class="d-flex justify-content-center gap-3">
+                        @for (int i = 0; i < allImages.Count; i++)
+                        {
+                            <div class="thumb-btn @(i == 0 ? "active" : "")" onclick="changeImage('@allImages[i]', this)">
+                                <img src="@allImages[i]" />
+                            </div>
+                        }
+                    </div>
+                }
+            </div>
+
+            <!-- Cột thông tin (Phải) -->
+            <div class="col-lg-6 ps-lg-5">
+                <div class="d-flex align-items-center gap-2 mb-3">
+                    <span class="badge bg-success rounded-pill px-3 py-2"><i class="fa-solid fa-check me-1"></i> Còn hàng</span>
+                    <span class="badge bg-dark rounded-pill px-3 py-2"><i class="fa-solid fa-truck-fast me-1"></i> Giao nhanh 2h</span>
+                </div>
+                
+                <h1 class="product-title">@Model.Name</h1>
+                
+                <div class="d-flex align-items-center gap-3 mb-4">
+                    <div class="text-warning">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star-half-stroke"></i>
+                    </div>
+                    <span class="text-muted fw-medium">4.8 (124 đánh giá)</span>
+                    <span class="text-muted">|</span>
+                    <span class="text-muted fw-medium">Đã bán 500+</span>
+                </div>
+
+                <div class="price-box mb-4">
+                    <div class="product-price">@Model.Price.ToString("#,##0") ₫</div>
+                    <small class="text-success fw-bold"><i class="fa-solid fa-tag"></i> Giá đã bao gồm VAT</small>
+                </div>
+
+                <div class="specs-card mb-4">
+                    <h6 class="fw-bold mb-3"><i class="fa-solid fa-circle-info me-2 text-primary"></i>Đặc điểm nổi bật</h6>
+                    <ul class="mb-0 text-muted ps-3" style="line-height: 1.8;">
+                        <li>Cam kết chính hãng 100%</li>
+                        <li>Bảo hành uy tín tại hệ thống SGN Store</li>
+                        <li>Hỗ trợ kỹ thuật 24/7 trọn đời sản phẩm</li>
+                        <li>Đổi trả miễn phí trong 7 ngày nếu lỗi từ NSX</li>
+                    </ul>
+                </div>
+
+                <form asp-controller="Cart" asp-action="AddToCart" method="post" class="d-flex gap-3 mb-4">
+                    <input type="hidden" name="productId" value="@Model.Id" />
+                    <!-- Quantity Input -->
+                    <div class="d-flex align-items-center bg-white border rounded-pill px-2" style="width: 140px; height: 56px;">
+                        <button type="button" class="btn btn-link text-dark text-decoration-none px-3 border-0" onclick="updateQty(-1)"><i class="fa-solid fa-minus"></i></button>
+                        <input type="text" id="qtyInput" name="quantity" value="1" class="form-control border-0 text-center bg-transparent fw-bold p-0" readonly>
+                        <button type="button" class="btn btn-link text-dark text-decoration-none px-3 border-0" onclick="updateQty(1)"><i class="fa-solid fa-plus"></i></button>
+                    </div>
+                    
+                    <!-- Add to Cart -->
+                    <button type="submit" class="btn btn-buy flex-grow-1 fs-5 d-flex align-items-center justify-content-center gap-2 border-0">
+                        <i class="fa-solid fa-cart-arrow-down"></i> Thêm vào giỏ hàng
+                    </button>
+                </form>
+                
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Phần Chi tiết sản phẩm & Sản phẩm liên quan -->
+<section class="container my-5 py-4">
+    <div class="row">
+        <!-- Mô tả -->
+        <div class="col-lg-8 mb-5 mb-lg-0">
+            <h3 class="fw-bold mb-4 border-bottom pb-3">Chi tiết sản phẩm</h3>
+            <div class="product-description text-dark" style="line-height: 1.8; font-size: 1.1rem; white-space: pre-wrap;">@Model.Description</div>
+        </div>
+        
+        <!-- Sản phẩm tương tự Sidebar (nếu có) -->
+        <div class="col-lg-4 ps-lg-5">
+            <h4 class="fw-bold mb-4 border-bottom pb-3">Sản phẩm tương tự</h4>
+            @if (relatedProducts != null && relatedProducts.Any())
+            {
+                <div class="d-flex flex-column gap-4">
+                    @foreach (var p in relatedProducts)
+                    {
+                        <a asp-controller="Product" asp-action="Display" asp-route-id="@p.Id" class="text-decoration-none">
+                            <div class="d-flex align-items-center gap-3 p-2 rounded-3" style="transition: background 0.2s;" onmouseover="this.style.backgroundColor='#f8f9fa'" onmouseout="this.style.backgroundColor='transparent'">
+                                <div class="bg-light rounded" style="width: 80px; height: 80px; flex-shrink: 0; padding: 5px;">
+                                    @if (!string.IsNullOrEmpty(p.ImageUrl))
+                                    {
+                                        <img src="@p.ImageUrl" class="w-100 h-100 object-fit-contain" />
+                                    }
+                                </div>
+                                <div>
+                                    <h6 class="text-dark fw-bold mb-1 text-truncate" style="max-width: 200px;">@p.Name</h6>
+                                    <div class="text-primary fw-bold">@p.Price.ToString("#,##0") ₫</div>
+                                </div>
+                            </div>
+                        </a>
+                    }
+                </div>
+            }
+            else
+            {
+                <p class="text-muted">Không có sản phẩm nào cùng danh mục.</p>
+            }
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <script>
+        function changeImage(url, el) {
+            document.getElementById('mainImage').src = url;
+            
+            // Xóa active ở các nút thumb khác
+            document.querySelectorAll('.thumb-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            // Thêm active vào nút được click
+            el.classList.add('active');
+        }
+
+        function updateQty(change) {
+            var input = document.getElementById('qtyInput');
+            var val = parseInt(input.value) + change;
+            if (val >= 1 && val <= 99) {
+                input.value = val;
+            }
+        }
+    </script>
+}

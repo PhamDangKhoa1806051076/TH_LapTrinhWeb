@@ -1,0 +1,44 @@
+@using Microsoft.AspNetCore.Identity
+@using PhamDangKhoa_W345_C2.Models
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+<ul class="top-links d-none d-md-flex align-items-center">
+    @if (SignInManager.IsSignedIn(User))
+    {
+        var user = await UserManager.GetUserAsync(User);
+        var displayName = !string.IsNullOrEmpty(user?.FullName) ? user.FullName : user?.UserName;
+        <li class="d-flex align-items-center gap-2">
+            <a asp-controller="Account" asp-action="Profile" class="d-flex align-items-center gap-2 text-decoration-none">
+                @if (!string.IsNullOrEmpty(user?.AvatarUrl))
+                {
+                    <img src="@user.AvatarUrl" class="rounded-circle shadow-sm" style="width: 32px; height: 32px; object-fit: cover; border: 2px solid var(--primary-color);" title="Hồ sơ của @displayName" />
+                }
+                else
+                {
+                    <i class="fa-solid fa-circle-user fs-4 text-primary" title="Hồ sơ của @displayName"></i>
+                }
+                <span class="fw-bold" style="color: var(--text-main); font-size: 13px; text-transform: none;">@displayName</span>
+            </a>
+        </li>
+        <li class="d-flex align-items-center">
+            <form class="form-inline m-0 p-0" asp-controller="Account" asp-action="Logout" method="post">
+                <button type="submit" class="btn btn-link text-danger p-0 fw-bold" style="text-decoration: none; font-size: 13px; white-space: nowrap; line-height: 1;">Đăng xuất</button>
+            </form>
+        </li>
+    }
+    else
+    {
+        <li><a asp-controller="Account" asp-action="Register">Đăng ký</a></li>
+        <li><a asp-controller="Account" asp-action="Login">Đăng nhập</a></li>
+    }
+    <li><a href="#" class="nav-info-link">Giới thiệu</a></li>
+    <li><a href="#" class="nav-info-link">Tin tức</a></li>
+    <li><a href="#" class="nav-info-link">Liên hệ</a></li>
+    <li>
+        <button id="theme-toggle" title="Chuyển chế độ sáng/tối"
+            style="background:none; border:none; cursor:pointer; padding:4px 6px; border-radius:8px; color:var(--text-main); font-size:18px; transition:var(--transition);">
+            <i id="theme-icon" class="fa-solid fa-moon"></i>
+        </button>
+    </li>
+</ul>

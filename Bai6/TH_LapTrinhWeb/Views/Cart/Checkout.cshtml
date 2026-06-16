@@ -1,0 +1,218 @@
+@model List<PhamDangKhoa_W345_C2.Models.CartItem>
+@{
+    ViewData["Title"] = "Thanh toán";
+    decimal total = Model.Sum(x => x.Price * x.Quantity);
+}
+
+<style>
+    body {
+        background-color: #f8f9fa;
+    }
+    .checkout-card {
+        background: #fff;
+        border-radius: 16px;
+        padding: 2rem;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+        border: 1px solid #f1f3f5;
+    }
+    .form-control-custom {
+        background-color: #f8f9fa;
+        border: 1px solid #e9ecef;
+        border-radius: 12px;
+        padding: 0.8rem 1rem;
+        transition: all 0.2s;
+    }
+    .form-control-custom:focus {
+        background-color: #fff;
+        border-color: #1d4ed8;
+        box-shadow: 0 0 0 0.25rem rgba(29, 78, 216, 0.1);
+    }
+    .payment-method-card {
+        border: 2px solid #e9ecef;
+        border-radius: 12px;
+        padding: 1rem;
+        cursor: pointer;
+        transition: all 0.2s;
+        background: #fff;
+    }
+    .payment-method-card:hover {
+        border-color: #1d4ed8;
+        background: #f8faff;
+    }
+    .payment-method-card input:checked ~ .payment-label {
+        color: #1d4ed8;
+        font-weight: bold;
+    }
+    .payment-method-card input:checked {
+        accent-color: #1d4ed8;
+    }
+    .summary-card {
+        background: #fff;
+        border-radius: 20px;
+        padding: 2rem;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        border: 1px solid #f1f3f5;
+        position: sticky;
+        top: 100px;
+    }
+    .item-img-wrapper {
+        position: relative;
+        width: 65px;
+        height: 65px;
+        background: #f8f9fa;
+        border-radius: 12px;
+        padding: 8px;
+        border: 1px solid #e9ecef;
+    }
+    .item-badge {
+        position: absolute;
+        top: -8px;
+        right: -8px;
+        background: #495057;
+        color: #fff;
+        border-radius: 50%;
+        width: 24px;
+        height: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.75rem;
+        font-weight: bold;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+    .summary-row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 1rem;
+        font-size: 1.05rem;
+        color: #495057;
+    }
+    .btn-submit-order {
+        background: linear-gradient(135deg, #1d4ed8, #2563eb);
+        border: none;
+        border-radius: 50px;
+        padding: 1.1rem;
+        font-size: 1.1rem;
+        font-weight: 700;
+        box-shadow: 0 8px 20px rgba(29, 78, 216, 0.3);
+        transition: all 0.3s;
+    }
+    .btn-submit-order:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(29, 78, 216, 0.4);
+    }
+</style>
+
+<div class="container py-5" style="min-height: 75vh;">
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb" class="mb-4">
+        <ol class="breadcrumb fs-6">
+            <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index" class="text-decoration-none text-muted"><i class="fa-solid fa-house me-1"></i>Trang chủ</a></li>
+            <li class="breadcrumb-item"><a asp-controller="Cart" asp-action="Index" class="text-decoration-none text-muted">Giỏ hàng</a></li>
+            <li class="breadcrumb-item active fw-bold text-dark" aria-current="page">Thanh toán</li>
+        </ol>
+    </nav>
+
+    <div class="row g-5">
+        <!-- Thông tin thanh toán (Trái) -->
+        <div class="col-lg-7">
+            <div class="checkout-card mb-4">
+                <div class="d-flex align-items-center mb-4">
+                    <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px;">
+                        <i class="fa-solid fa-location-dot"></i>
+                    </div>
+                    <h4 class="fw-bold mb-0">Thông tin giao hàng</h4>
+                </div>
+                
+                <form id="checkoutForm" asp-action="Checkout" method="post">
+                    <div class="row g-3">
+                        <div class="col-12">
+                            <label class="form-label fw-bold text-dark">Địa chỉ giao hàng chi tiết <span class="text-danger">*</span></label>
+                            <input type="text" name="shippingAddress" class="form-control form-control-custom" required placeholder="Số nhà, Tên đường, Phường/Xã, Quận/Huyện, Tỉnh/TP">
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label fw-bold text-dark">Số điện thoại liên hệ <span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light border-end-0 text-muted" style="border-radius: 12px 0 0 12px; border: 1px solid #e9ecef;">+84</span>
+                                <input type="text" name="phoneNumber" class="form-control form-control-custom border-start-0" style="border-radius: 0 12px 12px 0;" required placeholder="Nhập số điện thoại của bạn (VD: 0901234567)">
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="my-5 border-light">
+
+                    <div class="d-flex align-items-center mb-4">
+                        <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px;">
+                            <i class="fa-solid fa-credit-card"></i>
+                        </div>
+                        <h4 class="fw-bold mb-0">Phương thức thanh toán</h4>
+                    </div>
+
+                    <div class="payment-options">
+                        <label class="payment-method-card d-flex align-items-center w-100 mb-3">
+                            <input class="form-check-input mt-0 me-3" type="radio" name="paymentMethod" id="cod" checked style="width: 20px; height: 20px;">
+                            <div class="payment-label flex-grow-1">
+                                <span class="d-block fw-bold fs-5 mb-1">Thanh toán khi nhận hàng (COD)</span>
+                                <span class="text-muted fs-7 fw-normal">Bạn sẽ thanh toán bằng tiền mặt khi shipper giao hàng tới.</span>
+                            </div>
+                            <i class="fa-solid fa-money-bill-wave text-success fs-2 opacity-50"></i>
+                        </label>
+                        
+                        <!-- Bạn có thể thêm các phương thức khác ở đây sau này (VNPAY, Momo...) -->
+                    </div>
+
+                    <div class="d-none d-lg-block mt-5">
+                        <p class="text-muted fs-7 mb-0"><i class="fa-solid fa-shield-halved me-1 text-success"></i> Thông tin của bạn được bảo mật và mã hóa an toàn.</p>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Tóm tắt đơn hàng (Phải) -->
+        <div class="col-lg-5">
+            <div class="summary-card">
+                <h4 class="fw-bold mb-4">Đơn hàng của bạn <span class="text-muted fs-5 fw-normal">(@Model.Sum(x=>x.Quantity))</span></h4>
+                
+                <div class="mb-4 pe-2" style="max-height: 350px; overflow-y: auto;">
+                    @foreach(var item in Model)
+                    {
+                        <div class="d-flex align-items-center mb-3 pb-3 border-bottom border-light">
+                            <div class="item-img-wrapper flex-shrink-0">
+                                <img src="@item.ImageUrl" alt="@item.ProductName" class="object-fit-contain w-100 h-100 mix-blend-multiply">
+                                <span class="item-badge">@item.Quantity</span>
+                            </div>
+                            <div class="ms-3 flex-grow-1 pe-2">
+                                <h6 class="mb-1 fw-bold text-dark" style="font-size: 0.95rem; line-height: 1.3;">@item.ProductName</h6>
+                                <div class="text-muted" style="font-size: 0.8rem;">Mặc định</div>
+                            </div>
+                            <div class="fw-bold text-dark flex-shrink-0">
+                                @((item.Price * item.Quantity).ToString("#,##0")) ₫
+                            </div>
+                        </div>
+                    }
+                </div>
+
+                <div class="summary-row">
+                    <span class="text-secondary">Tạm tính</span>
+                    <span class="fw-bold text-dark">@total.ToString("#,##0") ₫</span>
+                </div>
+                <div class="summary-row">
+                    <span class="text-secondary">Phí vận chuyển</span>
+                    <span class="fw-bold text-success">Miễn phí</span>
+                </div>
+                
+                <div class="summary-row mt-4 pt-4 border-top border-2 border-dashed">
+                    <span class="fw-bold fs-4 text-dark">Tổng cộng</span>
+                    <span class="fw-bold fs-3 text-danger">@total.ToString("#,##0") ₫</span>
+                </div>
+
+                <button type="submit" form="checkoutForm" class="btn btn-primary btn-submit-order w-100 text-white mt-4">
+                    ĐẶT HÀNG NGAY <i class="fa-solid fa-arrow-right ms-2"></i>
+                </button>
+                <div class="text-center mt-3 d-lg-none">
+                    <p class="text-muted fs-7 mb-0"><i class="fa-solid fa-shield-halved me-1 text-success"></i> Thanh toán bảo mật</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

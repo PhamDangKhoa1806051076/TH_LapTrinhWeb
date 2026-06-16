@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chi Tiết Sản Phẩm - Coffee Tree</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+    <!-- CSS tùy chỉnh -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="text-white text-center py-2">
+        <h1 class="mb-0">Trang Web Bán Hàng</h1>
+    </header>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark py-0">
+        <div class="container">
+            <div class="d-flex align-items-center">
+                <a class="navbar-brand fs-6" href="index.html">Trang Chủ</a>
+            </div>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link fs-6 py-1" href="index.html">
+                        <i class="bi bi-house-door-fill me-1"></i>Trang Chủ</a>
+                    </li>
+                    <li class="nav-item"><a class="nav-link fs-6 py-1" href="index.html">
+                        <i class="bi bi-cup-hot-fill me-1"></i>Sản Phẩm</a>
+                    </li>
+                    <li class="nav-item"><a class="nav-link fs-6 py-1" href="#">
+                        <i class="bi bi-envelope-fill me-1"></i>Liên Hệ</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Nội dung chi tiết sản phẩm -->
+    <div class="container mt-4">
+        <div class="row bg-white p-4 shadow-sm rounded">
+
+            <!-- Cột trái: Hình ảnh sản phẩm -->
+            <div class="col-md-6 text-center mb-3 mb-md-0">
+                <img id="detailImg"
+                    src="https://bizweb.dktcdn.net/thumb/grande/100/468/889/products/ca-phe-espresso-huong-vi-kho-quen.jpg?v=1669952259183"
+                    class="img-fluid rounded border shadow-sm"
+                    alt="Sản phẩm"
+                    style="max-height: 400px; object-fit: cover; width: 100%;">
+            </div>
+
+            <!-- Cột phải: Thông tin chi tiết + Breadcrumb -->
+            <div class="col-md-6">
+                <!-- Breadcrumb điều hướng -->
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="index.html" class="text-decoration-none">
+                                <i class="bi bi-house-door me-1"></i>Trang chủ
+                            </a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">Chi tiết sản phẩm</li>
+                    </ol>
+                </nav>
+
+                <!-- Tên sản phẩm -->
+                <h2 class="fw-bold" id="productName">Cà Phê Espresso</h2>
+
+                <!-- Đánh giá sao -->
+                <div class="mb-2">
+                    <i class="bi bi-star-fill text-warning"></i>
+                    <i class="bi bi-star-fill text-warning"></i>
+                    <i class="bi bi-star-fill text-warning"></i>
+                    <i class="bi bi-star-fill text-warning"></i>
+                    <i class="bi bi-star-half text-warning"></i>
+                    <small class="text-muted ms-1" id="productRating">(4.5) · 128 đánh giá</small>
+                </div>
+
+                <!-- Giá bán -->
+                <h3 class="text-danger my-3 fw-bold" id="productPrice">35.000đ</h3>
+
+                <!-- Mô tả chi tiết -->
+                <p class="text-muted" id="productDesc">
+                    Đậm đặc nguyên chất, nền tảng của mọi loại cà phê. Được pha từ hạt cà phê
+                    rang xay tươi, chiết xuất dưới áp suất cao tạo nên lớp crema vàng óng đặc trưng.
+                    Hương vị đậm đà, mạnh mẽ, phù hợp cho những ai yêu thích cà phê truyền thống.
+                </p>
+
+                <!-- Các nút hành động -->
+                <div class="d-flex flex-wrap gap-3 mt-4">
+                    <button class="btn btn-buy btn-lg px-5">
+                        <i class="bi bi-cart-plus me-2"></i>Mua Ngay
+                    </button>
+                    <a href="index.html" class="btn btn-outline-secondary btn-lg">
+                        <i class="bi bi-arrow-left me-2"></i>Quay Lại
+                    </a>
+                    <a href="index.html" class="btn btn-outline-success btn-lg">
+                        <i class="bi bi-shop me-2"></i>Tiếp Tục Mua Sắm
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer 3 cột -->
+    <footer class="mt-4 mb-0">
+        <div class="container">
+            <div class="row g-2">
+                <div class="col-4">
+                    <div class="footer-col text-center py-2 rounded">
+                        <i class="bi bi-shop mb-1 d-block fs-5"></i>
+                        <p class="small mb-0 fw-semibold">Coffee Tree</p>
+                        <p class="small mb-0 text-white-50">&copy; 2026</p>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="footer-col text-center py-2 rounded">
+                        <i class="bi bi-telephone mb-1 d-block fs-5"></i>
+                        <p class="small mb-0 fw-semibold">Liên Hệ</p>
+                        <p class="small mb-0 text-white-50">0123 456 789</p>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="footer-col text-center py-2 rounded">
+                        <i class="bi bi-envelope mb-1 d-block fs-5"></i>
+                        <p class="small mb-0 fw-semibold">Email</p>
+                        <p class="small mb-0 text-white-50">info@coffeetree.vn</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Dữ liệu sản phẩm tương ứng với index.html
+        const products = {
+            1: {
+                name: "Cà Phê Espresso",
+                price: "35.000đ",
+                rating: "(4.5) · 128 đánh giá",
+                desc: "Đậm đặc nguyên chất, nền tảng của mọi loại cà phê. Được pha từ hạt cà phê rang xay tươi, chiết xuất dưới áp suất cao tạo nên lớp crema vàng óng đặc trưng.",
+                img: "https://bizweb.dktcdn.net/thumb/grande/100/468/889/products/ca-phe-espresso-huong-vi-kho-quen.jpg?v=1669952259183"
+            },
+            2: {
+                name: "Matcha Latte",
+                price: "55.000đ",
+                rating: "(5.0) · 214 đánh giá",
+                desc: "Sự hòa quyện giữa Matcha Nhật Bản cao cấp và sữa tươi mịn màng. Vừa thơm mát vừa bổ dưỡng, lý tưởng cho buổi sáng năng động.",
+                img: "https://quantra.vn/wp-content/uploads/2025/04/matcha_latte2.jpg"
+            },
+            3: {
+                name: "Cà Phê Cappuccino",
+                price: "40.000đ",
+                rating: "(4.2) · 96 đánh giá",
+                desc: "Lớp bọt sữa dày bồng bềnh trên nền Espresso đậm đà. Cappuccino chuẩn Ý với tỉ lệ 1:1:1 giữa espresso, sữa nóng và bọt sữa.",
+                img: "https://vinbarista.com/uploads/news/ca-phe-latte-la-gi-latte-co-vi-gi-latte-khac-gi-capuchino-202408161122_thumb.jpg"
+            },
+            4: {
+                name: "Cà Phê Americano",
+                price: "30.000đ",
+                rating: "(4.0) · 75 đánh giá",
+                desc: "Espresso pha loãng với nước nóng, mang lại hương vị thanh khiết và nhẹ nhàng hơn espresso thuần túy nhưng vẫn giữ được độ thơm đặc trưng.",
+                img: "https://www.cubes-asia.com/storage/blogs/2023/cafe-americano.jpg"
+            },
+            5: {
+                name: "Bạc Xỉu",
+                price: "35.000đ",
+                rating: "(4.8) · 189 đánh giá",
+                desc: "Sự kết hợp ngọt ngào giữa cà phê và sữa đặc theo phong cách Nam Bộ. Nhẹ nhàng, thơm ngon, thích hợp cho những ai không quen vị đắng của cà phê.",
+                img: "https://lypham.vn/wp-content/uploads/2024/09/cach-lam-bac-xiu-da.jpg"
+            },
+            6: {
+                name: "Cà Phê Đen Đá",
+                price: "25.000đ",
+                rating: "(5.0) · 302 đánh giá",
+                desc: "Hương vị truyền thống Việt Nam, đậm đà và sảng khoái. Pha từ cà phê Robusta rang đậm, nhỏ giọt chậm qua phin, uống cùng đá lạnh tạo cảm giác tươi mát tuyệt vời.",
+                img: "https://www.siftandsimmer.com/wp-content/uploads/2022/11/vietnamese-coffee1.jpg"
+            }
+        };
+
+        // Đọc id từ URL query string và hiển thị đúng sản phẩm
+        const params = new URLSearchParams(window.location.search);
+        const id = parseInt(params.get('id')) || 1;
+        const product = products[id] || products[1];
+
+        document.getElementById('productName').textContent = product.name;
+        document.getElementById('productPrice').textContent = product.price;
+        document.getElementById('productRating').textContent = product.rating;
+        document.getElementById('productDesc').textContent = product.desc;
+        document.getElementById('detailImg').src = product.img;
+        document.getElementById('detailImg').alt = product.name;
+        document.title = product.name + " - Coffee Tree";
+    </script>
+</body>
+
+</html>

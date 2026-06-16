@@ -1,0 +1,116 @@
+{
+  "info": {
+    "name": "SGN Store API",
+    "description": "Collection API cho project Bài 6 - SGN Store",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:5030",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Product API",
+      "item": [
+        {
+          "name": "GET - Lấy tất cả sản phẩm",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/ProductApi",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "ProductApi"]
+            }
+          }
+        },
+        {
+          "name": "GET - Lấy sản phẩm theo ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/ProductApi/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "ProductApi", "1"]
+            }
+          }
+        },
+        {
+          "name": "POST - Thêm sản phẩm mới",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Laptop Mới\",\n  \"price\": 20000000,\n  \"description\": \"Mô tả sản phẩm mới\",\n  \"categoryId\": 1,\n  \"quantity\": 10,\n  \"imageUrl\": null\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/ProductApi",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "ProductApi"]
+            }
+          }
+        },
+        {
+          "name": "PUT - Cập nhật sản phẩm",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": 1,\n  \"name\": \"Laptop HP Pavilion (Updated)\",\n  \"price\": 16000000,\n  \"description\": \"Mô tả đã cập nhật\",\n  \"categoryId\": 1,\n  \"quantity\": 45,\n  \"imageUrl\": \"/images/Hp1.png\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/ProductApi/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "ProductApi", "1"]
+            }
+          }
+        },
+        {
+          "name": "DELETE - Xóa sản phẩm",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/ProductApi/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "ProductApi", "1"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Category API",
+      "item": [
+        {
+          "name": "GET - Lấy tất cả danh mục",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/CategoryApi",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "CategoryApi"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
